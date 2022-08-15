@@ -6,6 +6,5 @@ https://jigintern-2022-summer-1-d.deno.dev/
 
 ### メンバー
 - ウノ
-- 
 - ャュョ(河田颯天)
 - やまじ(メンター)
