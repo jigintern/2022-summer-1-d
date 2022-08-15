@@ -7,5 +7,6 @@ https://jigintern-2022-summer-1-d.deno.dev/
 ### メンバー
 - ウノ
 - 
+- ひより
 - ャュョ(河田颯天)
 - やまじ(メンター)
