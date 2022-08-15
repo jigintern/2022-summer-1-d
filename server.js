@@ -9,6 +9,10 @@ serve(async (req) => {
     return new Response("jigインターンへようこそ！");
   }
 
+  if (req.method === "GET" && pathname === "/members") {
+    return new Response("ウノ、ひより、ヤユヨ、やまじ");
+  }
+
   return serveDir(req, {
     fsRoot: "public",
     urlRoot: "",
