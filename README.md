@@ -5,7 +5,7 @@ main ブランチに PUSH されたら自動で Deno Deploy にデプロイさ�
 https://jigintern-2022-summer-1-d.deno.dev/
 
 ### メンバー
-- 
+- ウノ
 - 
 - 
 - やまじ(メンター)
