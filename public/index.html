@@ -6,12 +6,17 @@
 </head>
 
 <body>
-  <h1 id="welcomeMessage"></h1>
+  <div>
+    <h1 id="welcomeMessage"></h1>
+    <div id="member"></div>
+  </div>
 
   <script type="module">
     window.onload = async (event) => {
       const response = await fetch("/welcome-message");
       document.querySelector("#welcomeMessage").innerText = await response.text();
+      const members = await fetch("/members");
+      document.querySelector("#member").innerText = await members.text();
     };
   </script>
 </body>
