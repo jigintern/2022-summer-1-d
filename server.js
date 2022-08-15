@@ -12,6 +12,10 @@ serve(async (req) => {
   if (req.method === "GET" && pathname === "/members") {
     return new Response("ウノ、ひより、ヤユヨ、やまじ");
   }
+  if (req.method === "GET" && pathname === "/today") {
+    const date = new Date();
+    return new Response(`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`);
+  }
 
   return serveDir(req, {
     fsRoot: "public",
