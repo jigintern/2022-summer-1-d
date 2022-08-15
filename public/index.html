@@ -18,7 +18,7 @@
       document.querySelector("#welcomeMessage").innerText = await response.text();
       const members = await fetch("/members");
       document.querySelector("#member").innerText = await members.text();
-      const today =await fetch("/today");
+      const today = await fetch("/today");
       document.querySelector("#date").innerText = await today.text();
     };
   </script>
