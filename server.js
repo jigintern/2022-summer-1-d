@@ -12,6 +12,11 @@ serve(async (req) => {
   if (req.method === "GET" && pathname === "/members") {
     return new Response("ウノ、ひより、ヤユヨ、やまじ");
   }
+  if (req.method === "GET" && pathname === "/today") {
+    const date = new Date();
+    // date.getMonth()で帰ってくる月の数字は0~11月なので+1して1~12月になるようにする
+    return new Response(`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`);
+  }
 
   return serveDir(req, {
     fsRoot: "public",
