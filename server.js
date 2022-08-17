@@ -30,7 +30,7 @@ serve(async (req) => {
     console.log(params)
     
     //気象庁のデータ
-    if(true||lastTime_getWeather!=new Date().getHours()){// 1h経過したか監視
+    if(lastTime_getWeather!=new Date().getHours()){// 1h経過したか監視
       lastTime_getWeather = new Date().getHours();
       const data = CSV.toJSON(await CSV.fetch(url)).filter(d=>d.国際地点番号)//ロード&国際地点番号を含むデータのみ抽出
       await Deno.writeTextFile("weatherData.json", JSON.stringify(data));
