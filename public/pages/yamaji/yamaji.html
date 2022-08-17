@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>yamaji</title>
+    <script src="//unpkg.com/alpinejs" defer></script>
+  </head>
+  <body>
+    <div x-data="yamajiCtrl">
+      <div class="name">
+        <span>name: </span>
+        <span x-text="name"></span>
+      </div>
+      <div class="age">
+        <span>age: </span>
+        <span x-text="age"></span>
+      </div>
+    </div>
+    <script>
+      function yamajiCtrl() {
+        return {
+          name: 'yamaji',
+          age: 21,
+        }
+      }
+    </script>
+  </body>
+</html>
