@@ -1,8 +1,5 @@
 name: Slack Incoming Webhooks
-on:
-  push:
-    branches: [ main ]
-  pull_request:
+on: [pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -18,7 +15,7 @@ jobs:
         with:
           payload: |
             {
-              "text": ":github: ビルド結果: ${{ job.status }}\n\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+              "text": ":github: ${{ github.event_name }} @ ${{ github.event.pull_request.html_url || github.event.head_commit.url }}\nby ${{ github.event.sender.login }}"
             }
         env:
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
