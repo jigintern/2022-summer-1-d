@@ -4,9 +4,15 @@
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="styles.css">
+  <script src="//unpkg.com/alpinejs" defer></script>
 </head>
 
 <body>
+  <div x-data="{ count: 0, increment() {this.count++;} }">
+    <h1>alpine sample</h1>
+    <p x-text="count"></p>
+    <button x-on:click="increment">increment</button>
+  </div>
   <div>
     <h1 id="welcomeMessage"></h1>
     <div id="member"></div>
