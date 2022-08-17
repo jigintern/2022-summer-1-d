@@ -1,5 +1,10 @@
 name: Slack Incoming Webhooks
-on: [pull_request]
+on: [
+  pull_request,
+  issue_comment,
+  pull_request_review,
+  pull_request_review_comment
+]
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,7 +20,7 @@ jobs:
         with:
           payload: |
             {
-              "text": ":github: ${{ github.event_name }} @ ${{ github.event.pull_request.html_url || github.event.head_commit.url }}\nby ${{ github.event.sender.login }}"
+              "text": ":github: ${{ github.event_name }}@${{ github.event.pull_request.html_url || github.event.head_commit.url }}\n${{ steps.check.outputs.comment_body }}\nby ${{ github.event.sender.login }}"
             }
         env:
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
