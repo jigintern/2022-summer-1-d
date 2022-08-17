@@ -1,3 +1,7 @@
+// 使い方
+// denoの実行できる環境で以下のコマンドをターミナルで実行してください
+// deno run --allow-net --allow-write indexNbr_gen.js
+
 //タブ区切りのtxtデータを{国際地点番号 : {緯度経度(10進数)}}のJsonデータに変換する
 const 緯度経度10進 = (str)=>{
   const axis = str.charAt(str.length-1)
