@@ -3,6 +3,12 @@ import { serveDir } from "https://deno.land/std@0.151.0/http/file_server.ts";
 import { CSV } from "https://js.sabae.cc/CSV.js";
 const url = "https://www.data.jma.go.jp/obd/stats/data/mdrr/tem_rct/alltable/mxtemsadext00_202208160900.csv";
 let lastTime_getWeather = new Date().getHours()//後々 yyyy/MM/dd/hh のString形式にする予定
+const updateWeatherData=async()=>{
+  lastTime_getWeather = new Date().getHours();
+  const data = CSV.toJSON(await CSV.fetch(url)).filter(d=>d.国際地点番号)//ロード&国際地点番号を含むデータのみ抽出
+  await Deno.writeTextFile("weatherData.json", JSON.stringify(data));
+}
+await updateWeatherData()
 
 serve(async (req) => {
   const pathname = new URL(req.url).pathname;
@@ -31,9 +37,7 @@ serve(async (req) => {
     
     //気象庁のデータ
     if(lastTime_getWeather!=new Date().getHours()){// 1h経過したか監視
-      lastTime_getWeather = new Date().getHours();
-      const data = CSV.toJSON(await CSV.fetch(url)).filter(d=>d.国際地点番号)//ロード&国際地点番号を含むデータのみ抽出
-      await Deno.writeTextFile("weatherData.json", JSON.stringify(data));
+      await updateWeatherData()
     }
     const weatherData = JSON.parse(await Deno.readTextFile("weatherData.json"));
     
