@@ -2,7 +2,7 @@ import { serve } from "https://deno.land/std@0.151.0/http/server.ts";
 import { serveDir } from "https://deno.land/std@0.151.0/http/file_server.ts";
 import { CSV } from "https://js.sabae.cc/CSV.js";
 const url = "https://www.data.jma.go.jp/obd/stats/data/mdrr/tem_rct/alltable/mxtemsadext00_202208160900.csv";
-let lastTime_getWeather = new Date().getHours()//後々 yyyy/MM/dd/hh のString形式にする予定
+let lastTime_getWeather = new Date().getHours()//後々 yyyyMMddhh のString形式にする予定
 const updateWeatherData=async()=>{
   lastTime_getWeather = new Date().getHours();
   const data = CSV.toJSON(await CSV.fetch(url)).filter(d=>d.国際地点番号)//ロード&国際地点番号を含むデータのみ抽出
