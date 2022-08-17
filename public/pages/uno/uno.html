@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>uno</title>
+    <script src="//unpkg.com/alpinejs" defer></script>
+  </head>
+  <body>
+    <div x-data="unoCtrl">
+      <div class="name">
+        <span>name: </span>
+        <span x-text="name"></span>
+      </div>
+      <div class="age">
+        <span>age: </span>
+        <span x-text="age"></span>
+      </div>
+    </div>
+    <script>
+      function unoCtrl() {
+        return{
+          name: 'uno',
+          age: 19,
+        };
+      }
+    </script>
+  </body>
+</html>
