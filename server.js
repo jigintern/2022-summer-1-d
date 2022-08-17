@@ -16,7 +16,6 @@ serve(async (req) => {
     return new Response("ウノ、ひより、ヤユヨ、やまじ");
   }
   if (req.method === "GET" && pathname === "/today") {
-    //テスト実行：http://localhost:8000/today
     const date = new Date();
     // date.getMonth()で帰ってくる月の数字は0~11月なので+1して1~12月になるようにする
     return new Response(`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`);
