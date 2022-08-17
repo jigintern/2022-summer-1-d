@@ -20,7 +20,7 @@ jobs:
         with:
           payload: |
             {
-              "text": ":github: ${{ github.event_name }}@${{ github.event.pull_request.html_url || github.event.head_commit.url }}\n${{ steps.check.outputs.comment_body }}\nby ${{ github.event.sender.login }}"
+              "text": ":github: ${{ github.event.pull_request.html_url || github.event.head_commit.url }} \n ${{ steps.check.outputs.comment_body }} \n by ${{ github.event.sender.login }}"
             }
         env:
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
