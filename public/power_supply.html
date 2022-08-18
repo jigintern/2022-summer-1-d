@@ -30,17 +30,17 @@
       </div>
     </div>
   <script>
-     function meterCtrl() {
-       return {
-         percentage: 0,
-         increment() {
-           this.percentage += 1;
-          },
-         rotateStyle() {
+    function meterCtrl() {
+      return {
+        percentage: 0,
+        increment() {
+          this.percentage += 1;
+        },
+        rotateStyle() {
             return `transform: rotate(${Math.floor(180 * (this.percentage / 100))}deg);`;
-          },
-        }
-     }
+        },
+      }
+    }
   </script>
 </body>
 
