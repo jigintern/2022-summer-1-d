@@ -191,6 +191,10 @@ serve(async (req) => {
     }
   }
 
+  if(pathname == "/login") {
+    return new Response("ok",{ status:400 })
+  }
+  
   return serveDir(req, {
     fsRoot: "public",
     urlRoot: "",
