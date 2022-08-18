@@ -2,35 +2,22 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="styles.css">
-  <script src="//unpkg.com/alpinejs" defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+    <title>Meltian fire it!</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/alpinejs" defer></script>
 </head>
 
 <body>
-  <div x-data="{ count: 0, increment() {this.count++;} }">
-    <h1>alpine sample</h1>
-    <p x-text="count"></p>
-    <button x-on:click="increment">increment</button>
-  </div>
-  <div>
-    <h1 id="welcomeMessage"></h1>
-    <div id="member"></div>
-    <div id="date"></div>
-  </div>
-  <div class="box"></div>
-  <div class="tent"></div>
-  <div class="tent1"></div>
-  <script type="module">
-    window.onload = async (event) => {
-      const response = await fetch("/welcome-message");
-      document.querySelector("#welcomeMessage").innerText = await response.text();
-      const members = await fetch("/members");
-      document.querySelector("#member").innerText = await members.text();
-      const today = await fetch("/today");
-      document.querySelector("#date").innerText = await today.text();
-    };
-  </script>
+    <img class="logo" src="img/meltian fire itロゴ.png">
+    <div class="box">
+        <div>
+                ID   <input id="ID" ><br>
+            password <input id="password" ><br><br>
+        </div>
+    </div>
+    <input type="submit" value="ゲームを始める" class="button">
 </body>
 
 </html>
