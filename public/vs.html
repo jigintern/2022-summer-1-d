@@ -5,22 +5,87 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Meltian fire it!</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="vs.css">
   <script src="//unpkg.com/alpinejs" defer></script>
 </head>
 
 <body>
   <div>
-    <a href="home.html"><img src="image/dialog.png" width="30px" height="30px" alt="sample"></a>
-  </div>
-  <div class="background">
-    <div class="enemy">
-      <img src="image/snowman1.png" alt="sample">
+    <div class="backgraund1">
+      <a href="home.html"><img src="image/dialog.png" width="30px" height="30px" alt="sample"></a>
     </div>
-    <div class="heel">
-      <img src="image/gauge.png" width="40%" alt="HPmeter">
-      <img src="image/gauge1.png" width="40%" alt="POWERmeter">
+    <div class="background2">
+      <div id="life-frame">
+        <div id="life-bar"></div>
+        <div id="life-mark"></div>
+    </div>
+      <div class="enemy" style="text-align: center">
+        <img id="image01"  src="image/snowman1.png" width="80%" alt="sample">
+      </div>
+      <div class="meter">
+        <img src="image/gauge.png" style="margin-right: 10px;" width="40%" alt="HPmeter">
+        <img src="image/gauge1.png" style="margin-left: 10px;" width="40%" alt="POWERmeter">
+      </div>
+      <div class="meter" >
+        <div class="button1">
+          <input type="image" id="button01" src="image/atk_button.png" onclick="countUpA()" width="100%" height="100%" alt="HPmeter">
+        </div>
+        <div class="button2" >
+            <input type="image" id="button02" src="image/run_button.png"  onclick="countreset()" width="100%" height="100%" alt="POWERmeter">
+        </div>
+      </div>
     </div>
   </div>
+  
 </body>
+<script type="text/javascript">
+  var elem = 0
+  const lifeBar = document.getElementById('life-bar')         
+  const lifeMark = document.getElementById('life-mark')       
+  let life = 100                                              
+  lifeBar.style.width = "100%"    
+  
+  
+
+  function countUpA(){
+    document.getElementById("image01").innerHTML = ++elem;
+    switch (elem){
+      case 0:
+        document.getElementById("image01").src="image/snowman1.png";
+        break;
+      case 1:
+        lifeBar.style.width = "66%"  
+        document.getElementById("image01").src="image/snowman4.png";
+        setTimeout(function(){
+          document.getElementById("image01").src="image/snowman2.png";
+        }, 400) 
+        break;
+      case 2:
+        lifeBar.style.width = "33%" 
+        document.getElementById("image01").src="image/snowman5.png";
+        setTimeout(function(){
+          document.getElementById("image01").src="image/snowman3.png";
+        }, 400) 
+        break;
+      case 3:
+        document.getElementById("button01").disabled = true;
+        document.getElementById("button02").disabled = true;
+        lifeBar.style.width = "0%"   
+        document.getElementById("image01").src="image/snowman6.png";
+        setTimeout(function(){
+          document.getElementById("image01").src="image/snowman1.png";
+          lifeBar.style.width = "100%";
+          elem=0;
+          document.getElementById("button02").disabled = false;
+          document.getElementById("button01").disabled = false;
+        }, 5000) 
+        
+    }
+  }
+  function countreset(){
+    lifeBar.style.width = "100%"    
+    elem=0;
+    document.getElementById("image01").src="image/snowman1.png";
+  }
+</script>
 </html>
