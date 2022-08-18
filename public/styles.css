@@ -20,7 +20,7 @@ html,body{
     width: 50%;
 }
 .enemy{
-    width:100%;
+    width:"100%";
     margin: 20%;
 }
 .heel{
