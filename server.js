@@ -188,9 +188,6 @@ serve(async (req) => {
       connection.release();
     }
   }
-  if (pathname == "/login") {
-    return new Response("ok",{status:400})
-  }
 
   return serveDir(req, {
     fsRoot: "public",
