@@ -3,16 +3,6 @@ import { serveDir } from "https://deno.land/std@0.151.0/http/file_server.ts";
 import { CSV } from "https://js.sabae.cc/CSV.js";
 import * as postgres from "https://deno.land/x/postgres@v0.14.0/mod.ts";
 
-const url = "https://www.data.jma.go.jp/obd/stats/data/mdrr/tem_rct/alltable/mxtemsadext00_202208160900.csv";
-let lastTime_getWeather = new Date().getHours()//後々 yyyyMMddhh のString形式にする予定
-const updateWeatherData=async()=>{
-  lastTime_getWeather = new Date().getHours();
-  const data = CSV.toJSON(await CSV.fetch(url)).filter(d=>d.国際地点番号)//ロード&国際地点番号を含むデータのみ抽出
-  await Deno.writeTextFile("weatherData.json", JSON.stringify(data));
-}
-await updateWeatherData()
-
-
 // Get the connection string from the environment variable "DATABASE_URL"
 const databaseUrl = Deno.env.get("DATABASE_URL");
 
@@ -30,10 +20,59 @@ try {
       atk INTEGER NOT NULL
     )
   `;
+  // Create the table
+  await connection.queryObject`
+    CREATE TABLE IF NOT EXISTS weatherData (
+      id SERIAL PRIMARY KEY,
+      text TEXT NOT NULL
+    )
+  `;
 } finally {
   // Release the connection back into the pool
   connection.release();
 }
+
+const now = (f) =>{
+  let Now = new Date();
+  let n;
+  switch(f){
+    case "y":
+      Now=Now.getFullYear()
+      n=4;
+      break;    
+    case "M":
+      Now=Now.getMonth()+1
+      n=2;
+      break;    
+    case "d":
+      Now=Now.getDay()
+      n=2;
+      break;    
+    case "h":
+      Now=Now.getHours()
+      n=2;
+      break;      
+    case "m":
+      Now=Now.getMinutes()
+      n=2;
+      break;    
+  }
+  return ('0' + Now.toString()).slice(-n)
+}
+const getLastTime=()=>{return `${now("y")}${now("M")}${now("d")}${now("h")}00`}
+let lastTime_getWeather = getLastTime()//後々 yyyyMMddhh のString形式にする予定
+console.log(lastTime_getWeather)
+const url = `https://www.data.jma.go.jp/obd/stats/data/mdrr/tem_rct/alltable/mxtemsadext00_${lastTime_getWeather}.csv`;
+const updateWeatherData=async()=>{
+  lastTime_getWeather = new Date().getHours();
+  const data = CSV.toJSON(await CSV.fetch(url)).filter(d=>d.国際地点番号)//ロード&国際地点番号を含むデータのみ抽出
+  //await Deno.writeTextFile("weatherData.json", JSON.stringify(data));
+  //console.log(data)
+  await connection.queryObject`
+            UPDATE weatherData set text=${JSON.stringify(data)} WHERE id=1
+          `;
+}
+await updateWeatherData()
 
 
 serve(async (req) => {
@@ -62,10 +101,13 @@ serve(async (req) => {
     console.log(params)
     
     //気象庁のデータ
-    if(lastTime_getWeather!=new Date().getHours()){// 1h経過したか監視
+    if(lastTime_getWeather!=getLastTime()){// 1h経過したか監視
       await updateWeatherData()
     }
-    const weatherData = JSON.parse(await Deno.readTextFile("weatherData.json"));
+    //const weatherData = JSON.parse(await Deno.readTextFile("weatherData.json"));
+    const weatherData = await JSON.parse((await connection.queryObject`
+    SELECT * FROM weatherData WHERE id=1
+    `).rows[0].text)
     
     //国際地点番号のデータ
     const indexNumber = JSON.parse(await Deno.readTextFile("indexNbr.json"));
@@ -74,7 +116,7 @@ serve(async (req) => {
     //及びそれぞれ距離を計算→最小とその気象情報を記録
     let minData = weatherData[0]
     let minDist = 999;
-    for(let i of weatherData){
+    for(const i of weatherData){
       const data = indexNumber[i.国際地点番号]
       const dist = ((latitude-data.latitude)**2+(longitude-data.longitude)**2)**0.5
       if(dist<minDist){
