@@ -24,14 +24,6 @@ try {
   // Release the connection back into the pool
   connection.release();
 }
-const url = "https://www.data.jma.go.jp/obd/stats/data/mdrr/tem_rct/alltable/mxtemsadext00_202208160900.csv";
-let lastTime_getWeather = new Date().getHours()//後々 yyyyMMddhh のString形式にする予定
-const updateWeatherData=async()=>{
-  lastTime_getWeather = new Date().getHours();
-  const data = CSV.toJSON(await CSV.fetch(url)).filter(d=>d.国際地点番号)//ロード&国際地点番号を含むデータのみ抽出
-  await Deno.writeTextFile("weatherData.json", JSON.stringify(data));
-}
-await updateWeatherData()
 
 serve(async (req) => {
   const pathname = new URL(req.url).pathname;
