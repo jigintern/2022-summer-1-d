@@ -45,7 +45,7 @@ const now = (f) =>{
       n=2;
       break;    
     case "d":
-      Now=Now.getDay()
+      Now=Now.getDate()
       n=2;
       break;    
     case "h":
@@ -109,6 +109,8 @@ serve(async (req) => {
     SELECT * FROM weatherData WHERE id=1
     `).rows[0].text)
     
+    console.log(weatherData)
+
     //国際地点番号のデータ
     const indexNumber = JSON.parse(await Deno.readTextFile("indexNbr.json"));
     
