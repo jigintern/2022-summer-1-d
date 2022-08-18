@@ -1,3 +1,44 @@
+*{
+    box-sizing: border-box;
+}
+
+html,body{
+    height: 100%;
+    width: 100%;
+    background-color:#faffffff ;
+}
+.background{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+.vs{
+    width: 50%;
+}
+.enemy{
+    width:100%;
+    margin: 20%;
+}
+.heel{
+    display: flex;
+    justify-content: center;
+}
+.top{
+    margin-bottom: 30px;
+}
+.hp{
+    width: 100%;
+}
+.bottom{
+    margin-top: 30Px;
+}
+.power{
+    width: 100%;
+}
 
 .box{
     display: flex;
