@@ -223,7 +223,7 @@ serve(async (req) => {
 
         const result = (await connection.queryObject`
           SELECT * FROM users WHERE loginid=${LoginId}
-        `).rows[0];
+        `)??[{password:null}].rows[0];//TABLEのusers.passwordはnull非許容
 
         if(result.password==HashedPassword)
           return new Response("ok");
@@ -234,9 +234,15 @@ serve(async (req) => {
         //テスト実行：Invoke-WebRequest http://localhost:8000/login -Method ‘POST’ -Body ‘{"loginId":"test","password":"testesttestestes"}’
         const fill = await req.json().catch(()=>null);
         console.log(fill)
-        await connection.queryObject`
-          INSERT INTO users(loginid, password) VALUES (${fill.loginId}, ${fill.password})
-        `;
+        try{
+          await connection.queryObject`
+            INSERT INTO users(loginid, password) VALUES (${fill.loginId}, ${fill.password})
+          `;
+        } catch(err) {
+          if(err.message=="duplicate key value violates unique constraint \"users_loginid_key\""){//.code==23505
+            return new Response("same id was already used.",{status:400})
+          }
+        }
 
         // Return a 201 Created response
         return new Response("", { status: 201 });
