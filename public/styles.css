@@ -13,6 +13,9 @@
     align-items: center;
     justify-content: center;
 }
+.button{
+    display: block;
+    margin:auto;
     width: 200px;
     height: 80px;
     
