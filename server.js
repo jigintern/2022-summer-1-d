@@ -27,6 +27,14 @@ try {
       text TEXT NOT NULL
     )
   `;
+  // Create the table
+  await connection.queryObject`
+    CREATE TABLE IF NOT EXISTS users (
+      id SERIAL PRIMARY KEY,
+      loginId TEXT UNIQUE NOT NULL,
+      password TEXT NOT NULL
+    )
+  `;
 } finally {
   // Release the connection back into the pool
   connection.release();
@@ -192,9 +200,36 @@ serve(async (req) => {
   }
 
   if(pathname == "/login") {
-    return new Response("ok",{ status:400 })
+      const params = new URLSearchParams(req.url.substring(req.url.indexOf("?")));
+      const LoginId = params.get("loginId");
+      const HashedPassword = params.get("password")
+      console.log(`id: ${LoginId}`);
+    switch(req.method){
+      case "GET":{
+        // This is a GET request. Return a list of all todos.
+        // Run the query
+
+        const result = await connection.queryObject`
+          SELECT * FROM status WHERE loginId=${LoginId}
+        `.rows[0];
+
+        if(result.password==HashedPassword)
+          return new Response("ok",{ status:400 })
+        else
+          return new Response("failed",{ status:404 })
+      }
+      case "POST":{
+        await connection.queryObject`
+          INSERT INTO users(loginId, password) VALUE (${LoginId}, ${HashedPassword})
+        `;
+
+        // Return a 201 Created response
+        return new Response("", { status: 201 });
+      }
+      default: // If this is neither a POST, or a GET return a 405 response.
+      return new Response("Method Not Allowed", { status: 405 });
+    }
   }
-  
   return serveDir(req, {
     fsRoot: "public",
     urlRoot: "",
