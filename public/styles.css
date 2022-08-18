@@ -16,13 +16,7 @@ html,body{
     justify-content: center;
     
 }
-.vs{
-    width: 50%;
-}
-.enemy{
-    width:100%;
-    margin: 20%;
-}
+
 .heel{
     display: flex;
     justify-content: center;
@@ -41,12 +35,26 @@ html,body{
 }
 
 .box{
+    text-align: center;
     display: flex;
     margin:15px;
-    width:350px;
+    width:100%;
     height:130px;
     background-size:cover;
     background-color:rgba(255, 255, 255,1.0);
     background-blend-mode:lighten;
     border:4px solid #008b8b;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.button{
+    display: block;
+    margin:auto;
+    width: 200px;
+    height: 80px;
+    
+}
+.logo{
+    width: 100%;
 }
