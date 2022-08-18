@@ -31,7 +31,7 @@ try {
   await connection.queryObject`
     CREATE TABLE IF NOT EXISTS users (
       id SERIAL PRIMARY KEY,
-      loginId TEXT UNIQUE NOT NULL,
+      loginid TEXT UNIQUE NOT NULL,
       password TEXT NOT NULL
     )
   `;
@@ -200,27 +200,31 @@ serve(async (req) => {
   }
 
   if(pathname == "/login") {
-      const params = new URLSearchParams(req.url.substring(req.url.indexOf("?")));
-      const LoginId = params.get("loginId");
-      const HashedPassword = params.get("password")
-      console.log(`id: ${LoginId}`);
     switch(req.method){
       case "GET":{
+        //テスト実行：Invoke-WebRequest http://localhost:8000/login?loginId=test"&"password=testesttestestes
         // This is a GET request. Return a list of all todos.
         // Run the query
+        const params = new URLSearchParams(req.url.substring(req.url.indexOf("?")));
+        const LoginId = params.get("loginId");
+        const HashedPassword = params.get("password")
+        console.log(`id: ${LoginId}`);
 
-        const result = await connection.queryObject`
-          SELECT * FROM status WHERE loginId=${LoginId}
-        `.rows[0];
+        const result = (await connection.queryObject`
+          SELECT * FROM users WHERE loginid=${LoginId}
+        `).rows[0];
 
         if(result.password==HashedPassword)
-          return new Response("ok",{ status:400 })
+          return new Response("ok");
         else
-          return new Response("failed",{ status:404 })
+          return new Response("failed",{ status:400 });
       }
       case "POST":{
+        //テスト実行：Invoke-WebRequest http://localhost:8000/login -Method ‘POST’ -Body ‘{"loginId":"test","password":"testesttestestes"}’
+        const fill = await req.json().catch(()=>null);
+        console.log(fill)
         await connection.queryObject`
-          INSERT INTO users(loginId, password) VALUE (${LoginId}, ${HashedPassword})
+          INSERT INTO users(loginid, password) VALUES (${fill.loginId}, ${fill.password})
         `;
 
         // Return a 201 Created response
