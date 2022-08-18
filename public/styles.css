@@ -13,14 +13,6 @@
     align-items: center;
     justify-content: center;
 }
-.div{
-    position: absolute;
-    left: 100px;
-    top: 10px;
-}
-button{
-    display:inline-block;
-    text-size-adjust: 60px;
     width: 200px;
     height: 80px;
     
