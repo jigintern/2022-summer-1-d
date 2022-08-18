@@ -50,40 +50,6 @@ serve(async (req) => {
     return new Response(`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`);
   }
 
-  if (req.method === "GET" && pathname === "/temp") {
-    //テスト実行：http://localhost:8000/temp?latitude=32.5453&longitude=123.4567
-    //入力(緯度経度)を整理
-    const params = new URLSearchParams(req.url.substring(req.url.indexOf("?")))
-    const latitude = params.get("latitude")
-    const longitude = params.get("longitude")
-    console.log(params)
-    
-    //気象庁のデータ
-    if(lastTime_getWeather!=new Date().getHours()){// 1h経過したか監視
-      await updateWeatherData()
-    }
-    const weatherData = JSON.parse(await Deno.readTextFile("weatherData.json"));
-    
-    //国際地点番号のデータ
-    const indexNumber = JSON.parse(await Deno.readTextFile("indexNbr.json"));
-    
-    //wDの国際地点番号でiNの緯度経度を検索
-    //及びそれぞれ距離を計算→最小とその気象情報を記録
-    let minData = weatherData[0]
-    let minDist = 999;
-    for(let i of weatherData){
-      const data = indexNumber[i.国際地点番号]
-      const dist = ((latitude-data.latitude)**2+(longitude-data.longitude)**2)**0.5
-      if(dist<minDist){
-        minDist = dist;
-        minData = i;
-      }
-    }
-    console.log(minData)
-    //記録された気象情報の温度を取得,返す
-    return new Response(`${minData["今日の最高気温(℃)"]}`)
-  }
-  
   if (pathname == "/player") {
     // Grab a connection from the database pool
     const connection = await pool.connect();
