@@ -50,6 +50,15 @@
       <div class="meter-hand" x-bind:style="rotateStyle()">
         <img width="100px" style="transform: scale(-1, 1);" src="image/needle.png"/>
 =======
+  <img src="image/gauge1.png"  class="ATKmeter" width="200px" height="90px" style="display: block; margin:auto">
+    <div class="meters-wrapper">
+      <div class="meter-panel" x-data="meterCtrl">
+        <div class="meter">
+          <div class="power">
+            <img src="image/needle2.png" class="needle" width="90px" style="transform: scale(-1, 1);"  x-bind:style="rotateStyle()">
+          </div>
+          <button x-on:click="increment" style="display: block; margin:auto">ATK回復</button>
+        </div>
 >>>>>>> Stashed changes
       </div>
     </div>
