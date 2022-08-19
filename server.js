@@ -27,6 +27,14 @@ try {
       text TEXT NOT NULL
     )
   `;
+  // Create the table
+  await connection.queryObject`
+    CREATE TABLE IF NOT EXISTS users (
+      id SERIAL PRIMARY KEY,
+      loginid TEXT UNIQUE NOT NULL,
+      password TEXT NOT NULL
+    )
+  `;
 } finally {
   // Release the connection back into the pool
   connection.release();
@@ -199,6 +207,48 @@ serve(async (req) => {
     } finally {
       // Release the connection back into the pool
       connection.release();
+    }
+  }
+
+  if(pathname == "/login") {
+    switch(req.method){
+      case "GET":{
+        //テスト実行：Invoke-WebRequest http://localhost:8000/login?loginId=test"&"password=testesttestestes
+        // This is a GET request. Return a list of all todos.
+        // Run the query
+        const params = new URLSearchParams(req.url.substring(req.url.indexOf("?")));
+        const LoginId = params.get("loginId");
+        const HashedPassword = params.get("password")
+        console.log(`id: ${LoginId}`);
+
+        const result = (await connection.queryObject`
+          SELECT * FROM users WHERE loginid=${LoginId}
+        `)??[{password:null}].rows[0];//TABLEのusers.passwordはnull非許容
+
+        if(result.password==HashedPassword)
+          return new Response("ok");
+        else
+          return new Response("failed",{ status:400 });
+      }
+      case "POST":{
+        //テスト実行：Invoke-WebRequest http://localhost:8000/login -Method ‘POST’ -Body ‘{"loginId":"test","password":"testesttestestes"}’
+        const fill = await req.json().catch(()=>null);
+        console.log(fill)
+        try{
+          await connection.queryObject`
+            INSERT INTO users(loginid, password) VALUES (${fill.loginId}, ${fill.password})
+          `;
+        } catch(err) {
+          if(err.message=="duplicate key value violates unique constraint \"users_loginid_key\""){//.code==23505
+            return new Response("same id was already used.",{status:400})
+          }
+        }
+
+        // Return a 201 Created response
+        return new Response("", { status: 201 });
+      }
+      default: // If this is neither a POST, or a GET return a 405 response.
+      return new Response("Method Not Allowed", { status: 405 });
     }
   }
 
