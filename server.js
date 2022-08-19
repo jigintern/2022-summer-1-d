@@ -3,11 +3,11 @@ import { serveDir } from "https://deno.land/std@0.151.0/http/file_server.ts";
 import { CSV } from "https://js.sabae.cc/CSV.js";
 import * as postgres from "https://deno.land/x/postgres@v0.14.0/mod.ts";
 
-// Get the connection string from the environment variable "DATABASE_URL"
-const databaseUrl = Deno.env.get("DATABASE_URL");
+ // Get the connection string from the environment variable "DATABASE_URL"
+ const databaseUrl = Deno.env.get("DATABASE_URL");
 
-// Create a database pool with three connections that are lazily established
-const pool = new postgres.Pool(databaseUrl, 3, true);
+ // Create a database pool with three connections that are lazily established
+ const pool = new postgres.Pool(databaseUrl, 3, true);
 
 // Connect to the database
 const connection = await pool.connect();
@@ -89,9 +89,9 @@ serve(async (req) => {
   const pathname = new URL(req.url).pathname;
   console.log(pathname);
 
-  if (req.method === "GET" && pathname === "/welcome-message") {
-    return new Response("jigインターンへようこそ！");
-  }
+ if (req.method === "GET" && pathname === "/welcome-message") {
+     return new Response("jigインターンへようこそ！");
+   }
 
   if (req.method === "GET" && pathname === "/members") {
     return new Response("ウノ、ひより、ヤユヨ、やまじ");
@@ -160,13 +160,12 @@ serve(async (req) => {
           );
           const ID = params.get("id");
           console.log(`id: ${ID}`);
+           const result = await connection.queryObject`
+             SELECT * FROM status WHERE id=${ID}
+           `;
 
-          const result = await connection.queryObject`
-            SELECT * FROM status WHERE id=${ID}
-          `;
-
-          // Encode the result as JSON
-          const body = JSON.stringify(result.rows, null, 2);
+           // Encode the result as JSON
+           const body = JSON.stringify(result.rows, null, 2);
 
           // Return the result as JSON
           return new Response(body, {
@@ -187,11 +186,10 @@ serve(async (req) => {
             return new Response("Bad Request", { status: 400 });
           }
 
-          // Insert the new todo into the database
-          await connection.queryObject`
-            UPDATE status set hp=${status.hp}, atk=${status.atk} WHERE id=${ID}
-          `;
-
+           // Insert the new todo into the database
+           await connection.queryObject`
+             UPDATE status set hp=${status.hp}, atk=${status.atk} WHERE id=${ID}
+           `;
           // Return a 201 Created response
           return new Response("", { status: 201 });
         }
