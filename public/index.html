@@ -11,13 +11,55 @@
 
 <body>
     <img class="logo" src="img/meltian fire itロゴ.png">
-    <div class="box">
-        <div>
-                ID   <input id="ID" ><br>
-            password <input id="password" ><br><br>
+    <div class="background">
+      <div class="panel" x-data="loginFormCtrl">
+        <div class="box">
+          <div>
+                ID   <input id="id" type="text" x-model="id" placeholder="ID"><br>
+            password <input id="password" type="password" x-model="password" placeholder="password"><br><br>
+          </div>
         </div>
+        <a class="button" x-bind:class="submitDisableFlag() ? 'disabled' : ''" x-on:click="submit">
+            <input type="submit" value="ゲームを始める" class="button">
+        </a>
+      </div>
     </div>
-    <input type="submit" value="ゲームを始める" class="button">
-</body>
-
+  </body>
+  <script>
+    function loginFormCtrl () {
+      return {
+        id: '',
+        password: '',
+        // id か パスワード が未入力の間はtrueになるフラグ
+        submitDisableFlag() {
+          return this.id === '' || this.password === '';
+        },
+        async submit() {
+          if (this.submitDisableFlag())
+            return
+          const result = await fetch(`/login?loginId=${this.id}&password=${this.password}`)
+          const res = await result.text()
+          if(res=="ok"){
+            alert("ok")
+            window.location.href="/home.html"
+            return
+          }
+          if(confirm("アカウントが存在しない可能性があります。\n新しく作りますか？")){
+            const res_post = await fetch("/login",{
+                method:"POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ "loginId":this.id,"password":this.password})
+            })
+            if(res_post.status==201){
+                alert("新規登録しました。")
+                window.location.href="/home.html"
+                return
+            }
+            alert(await res_post.text())
+          }
+          return
+        }
+      }
+    }
+  </script>
 </html>

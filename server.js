@@ -219,11 +219,11 @@ serve(async (req) => {
         const params = new URLSearchParams(req.url.substring(req.url.indexOf("?")));
         const LoginId = params.get("loginId");
         const HashedPassword = params.get("password")
-        console.log(`id: ${LoginId}`);
+        console.log(`id: ${LoginId}\npassword: ${HashedPassword}`);
 
-        const result = (await connection.queryObject`
+        const result = ((await connection.queryObject`
           SELECT * FROM users WHERE loginid=${LoginId}
-        `)??[{password:null}].rows[0];//TABLEのusers.passwordはnull非許容
+        `)??[{password:null}]).rows[0];//TABLEのusers.passwordはnull非許容
 
         if(result.password==HashedPassword)
           return new Response("ok");
