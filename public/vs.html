@@ -25,25 +25,15 @@
         </b>
       </div>
       <div class="vs">
-        <div x-data="fire_show()">
-          <div x-show="fire" >
-            <img id="image02" src="image/fire.gif" width="100px" height="100px" alt="fire">
-          </div>
-        </div>
         <div class="enemy" style="text-align: center">
-          <img id="image01" src="image/snowman1.png" width="80%" alt="sample">
-        </div>
-        <div x-data="ice_show()">
-          <div x-show="ice" >
-            <img id="image03" src="image/ice.gif" width="100px" height="100px" alt="ice">
-          </div>
+          <img id="image01" src="image/snowman1.png" width="70%" alt="sample">
         </div>
       </div>
-      <div class="meter">
-        <img src="image/gauge.png" style="margin-right: 10px;" width="40%" alt="HPmeter">
-        <img src="image/gauge1.png" style="margin-left: 10px;" width="40%" alt="POWERmeter">
+      <div class="position">
+          <img id="image02" src="image/gauge/hpgauge100.png" width="40%" alt="sample">
+          <img id="image03" src="image/gauge/pwgauge70.png" width="40%" alt="sample">
       </div>
-      <div class="meter" >
+      <div class="position" >
         <div class="button1">
           <input type="image" id="button01" src="image/atk_button.png" onclick="countUpA()" width="100%" height="100%" alt="HPmeter">
         </div>
@@ -67,22 +57,6 @@
   let life = 100                                              
   lifeBar.style.width = "100%"    
   let obj = document.getElementById('text')
-  var a = 0
-  var b = 0
-  var fire = false
-  var ice = false
-  function fire_show(){
-    return{
-      fire: a === 1
-    } 
-  }
-  function ice_show(){
-    return{
-      ice:b === 1
-
-    }
-  }
-
   function countUpA(){
     document.getElementById("image01").innerHTML = ++elem;
     switch (elem){
@@ -94,16 +68,14 @@
         document.getElementById('text').innerText = "攻撃をした!";
         document.getElementById("button01").disabled = true;
         document.getElementById("button02").disabled = true;
+        document.getElementById("image03").src="image/gauge/pwdamagegauge70.png";
         }, 1)
         setTimeout(function(){
           document.getElementById("image01").src="image/snowman4.png";
-          a=1
-          fire_show();
+          document.getElementById("image03").src="image/gauge/pwgauge50.png";
         }, 250) 
         setTimeout(function(){
           lifeBar.style.width = "66%";
-          a=0;
-          fire_show();
         }, 500) 
         setTimeout(function(){
           document.getElementById('text').innerText = "273kのダメージを与えた!";
@@ -113,12 +85,10 @@
           document.getElementById('text').innerText = "クーランが攻撃してきた!";
         }, 2000) 
         setTimeout(function(){
-          b = 1;
-          ice_show();
-        }, 2500) 
+          document.getElementById("image02").src="image/gauge/hpdamagegauge100.png";
+        }, 2250) 
         setTimeout(function(){
-          b=0;
-          ice_show();
+          document.getElementById("image02").src="image/gauge/hpgauge66.png";
           document.getElementById('text').innerText = "273Kのダメージを受けた!";
           document.getElementById("button02").disabled = false;
           document.getElementById("button01").disabled = false;
@@ -129,13 +99,13 @@
         document.getElementById('text').innerText = "攻撃をした!";
         document.getElementById("button01").disabled = true;
         document.getElementById("button02").disabled = true;
-
+        document.getElementById("image03").src="image/gauge/pwdamagegauge50.png";
         }, 1)
         setTimeout(function(){
           document.getElementById("image01").src="image/snowman5.png";
+          document.getElementById("image03").src="image/gauge/pwgauge30.png";
         }, 250) 
         setTimeout(function(){
-
           lifeBar.style.width = "33%";  
         }, 500) 
         setTimeout(function(){
@@ -146,10 +116,10 @@
           document.getElementById('text').innerText = "クーランが攻撃してきた!";
         }, 2000) 
         setTimeout(function(){
-
-        }, 2500) 
+          document.getElementById("image02").src="image/gauge/hpdamagegauge66.png";
+        }, 2250) 
         setTimeout(function(){
-
+          document.getElementById("image02").src="image/gauge/hpgauge30.png";
           document.getElementById('text').innerText = "273Kのダメージを受けた!";
           document.getElementById("button02").disabled = false;
           document.getElementById("button01").disabled = false;
@@ -157,12 +127,13 @@
         break;
       case 3:
         setTimeout(function(){
+          document.getElementById("image03").src="image/gauge/pwdamagegauge30.png";
           document.getElementById('text').innerText = "攻撃をした!";
           document.getElementById("button01").disabled = true;
           document.getElementById("button02").disabled = true;
         }, 1) 
-        
         setTimeout(function(){
+          document.getElementById("image03").src="image/gauge/pwgauge10.png";
           document.getElementById("image01").src="image/snowman6.png";
           lifeBar.style.width = "0%";   
           document.getElementById('text').innerText = "敵を討伐した！";
@@ -179,6 +150,8 @@
           document.getElementById("life-frame").style.visibility='visible';
           document.getElementById('text').innerText = "新たな雑魚クーランが現れた！";
           document.getElementById("image01").src="image/snowman1.png";
+          document.getElementById("image03").src="image/gauge/pwgauge70.png";
+          document.getElementById("image02").src="image/gauge/hpgauge100.png";
           lifeBar.style.width = "100%";
           elem=0;
           document.getElementById("button02").disabled = false;
@@ -202,6 +175,8 @@
       document.getElementById("life-frame").style.visibility='visible';
       document.getElementById('text').innerText = "新たな雑魚クーランが現れた！";
       document.getElementById("image01").src="image/snowman1.png";
+      document.getElementById("image03").src="image/gauge/pwgauge70.png";
+      document.getElementById("image02").src="image/gauge/hpgauge100.png";
       document.getElementById("button02").disabled = false;
       document.getElementById("button01").disabled = false;
     }, 3000) 

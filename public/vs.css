@@ -1,40 +1,33 @@
 *{
   box-sizing: border-box;
 }
-
 html,body{
   height: 100%;
   width: 100%;
   background-color:#faffffff ;
 }
-
 .background1{
   height: 100%;
   width: 100%;
 }
-
 .background2{
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  
 }
-
 #life-frame {
   margin: 0 auto;
-  width: 80%;
+  width: 70%;
   background-color: rgba(10, 0, 50, 0.6);
   display: flex;
   padding: 3px 3px;
 }
-
 #life-bar {
   height: 3px;
   background-color: rgb(0, 255, 255);
   transition: 300ms
 }
-
 #life-mark {
   width: 3px;
   height: 3px;
@@ -44,27 +37,23 @@ html,body{
   box-shadow: 0 0 5px 3px rgb(200, 255, 255),
               0 0 7px 7px rgb(100, 255, 255);
 }
-
 .enemy_name{
   font-size: 20px;
   color: rgb(0, 39, 51);
+  margin-top: 3px;
 }
-
 .vs{
   display: flex;
   justify-content: center;
 }
-
 .enemy{
   margin-left: 10%;
   margin-right: 10%;
 }
-
-.meter{
+.position{
   display: flex;
   justify-content: center;
 }
-
 .button1{
   display: flex;
   justify-content: center;
