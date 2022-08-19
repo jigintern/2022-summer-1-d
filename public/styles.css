@@ -16,7 +16,10 @@ html,body{
     justify-content: center;
     
 }
-
+.vs{
+    display: flex;
+    justify-content: center;
+}
 .heel{
     display: flex;
     justify-content: center;

@@ -14,13 +14,30 @@
     <div class="backgraund1">
       <a href="home.html"><img src="image/dialog.png" width="30px" height="30px" alt="sample"></a>
     </div>
-    <div class="background2">
+    <div class="background2" >
       <div id="life-frame">
         <div id="life-bar"></div>
         <div id="life-mark"></div>
-    </div>
-      <div class="enemy" style="text-align: center">
-        <img id="image01"  src="image/snowman1.png" width="80%" alt="sample">
+      </div>
+      <div class="enemy_name" id="enemy_name" >
+        <b>
+          雑魚クーラン
+        </b>
+      </div>
+      <div class="vs">
+        <div x-data="fire_show()">
+          <div x-show="fire" >
+            <img id="image02" src="image/fire.gif" width="100px" height="100px" alt="fire">
+          </div>
+        </div>
+        <div class="enemy" style="text-align: center">
+          <img id="image01" src="image/snowman1.png" width="80%" alt="sample">
+        </div>
+        <div x-data="ice_show()">
+          <div x-show="ice" >
+            <img id="image03" src="image/ice.gif" width="100px" height="100px" alt="ice">
+          </div>
+        </div>
       </div>
       <div class="meter">
         <img src="image/gauge.png" style="margin-right: 10px;" width="40%" alt="HPmeter">
@@ -34,18 +51,37 @@
             <input type="image" id="button02" src="image/run_button.png"  onclick="countreset()" width="100%" height="100%" alt="POWERmeter">
         </div>
       </div>
+      <div id="text" class="box">
+        <div>
+            雑魚クーランが現れた！
+        </div>
+      </div>
     </div>
   </div>
   
 </body>
-<script type="text/javascript">
+<script type="text/javascript" >
   var elem = 0
   const lifeBar = document.getElementById('life-bar')         
   const lifeMark = document.getElementById('life-mark')       
   let life = 100                                              
   lifeBar.style.width = "100%"    
-  
-  
+  let obj = document.getElementById('text')
+  var a = 0
+  var b = 0
+  var fire = false
+  var ice = false
+  function fire_show(){
+    return{
+      fire: a === 1
+    } 
+  }
+  function ice_show(){
+    return{
+      ice:b === 1
+
+    }
+  }
 
   function countUpA(){
     document.getElementById("image01").innerHTML = ++elem;
@@ -54,38 +90,123 @@
         document.getElementById("image01").src="image/snowman1.png";
         break;
       case 1:
-        lifeBar.style.width = "66%"  
-        document.getElementById("image01").src="image/snowman4.png";
-        setTimeout(function(){
-          document.getElementById("image01").src="image/snowman2.png";
-        }, 400) 
-        break;
-      case 2:
-        lifeBar.style.width = "33%" 
-        document.getElementById("image01").src="image/snowman5.png";
-        setTimeout(function(){
-          document.getElementById("image01").src="image/snowman3.png";
-        }, 400) 
-        break;
-      case 3:
+      setTimeout(function(){
+        document.getElementById('text').innerText = "攻撃をした!";
         document.getElementById("button01").disabled = true;
         document.getElementById("button02").disabled = true;
-        lifeBar.style.width = "0%"   
-        document.getElementById("image01").src="image/snowman6.png";
+        }, 1)
         setTimeout(function(){
+          document.getElementById("image01").src="image/snowman4.png";
+          a=1
+          fire_show();
+        }, 250) 
+        setTimeout(function(){
+          lifeBar.style.width = "66%";
+          a=0;
+          fire_show();
+        }, 500) 
+        setTimeout(function(){
+          document.getElementById('text').innerText = "273kのダメージを与えた!";
+          document.getElementById("image01").src="image/snowman2.png";
+        }, 1000) 
+        setTimeout(function(){
+          document.getElementById('text').innerText = "クーランが攻撃してきた!";
+        }, 2000) 
+        setTimeout(function(){
+          b = 1;
+          ice_show();
+        }, 2500) 
+        setTimeout(function(){
+          b=0;
+          ice_show();
+          document.getElementById('text').innerText = "273Kのダメージを受けた!";
+          document.getElementById("button02").disabled = false;
+          document.getElementById("button01").disabled = false;
+        }, 3000) 
+        break;
+      case 2:
+      setTimeout(function(){
+        document.getElementById('text').innerText = "攻撃をした!";
+        document.getElementById("button01").disabled = true;
+        document.getElementById("button02").disabled = true;
+
+        }, 1)
+        setTimeout(function(){
+          document.getElementById("image01").src="image/snowman5.png";
+        }, 250) 
+        setTimeout(function(){
+
+          lifeBar.style.width = "33%";  
+        }, 500) 
+        setTimeout(function(){
+          document.getElementById('text').innerText = "273kのダメージを与えた!";
+          document.getElementById("image01").src="image/snowman3.png";
+        }, 1000) 
+        setTimeout(function(){
+          document.getElementById('text').innerText = "クーランが攻撃してきた!";
+        }, 2000) 
+        setTimeout(function(){
+
+        }, 2500) 
+        setTimeout(function(){
+
+          document.getElementById('text').innerText = "273Kのダメージを受けた!";
+          document.getElementById("button02").disabled = false;
+          document.getElementById("button01").disabled = false;
+        }, 3000) 
+        break;
+      case 3:
+        setTimeout(function(){
+          document.getElementById('text').innerText = "攻撃をした!";
+          document.getElementById("button01").disabled = true;
+          document.getElementById("button02").disabled = true;
+        }, 1) 
+        
+        setTimeout(function(){
+          document.getElementById("image01").src="image/snowman6.png";
+          lifeBar.style.width = "0%";   
+          document.getElementById('text').innerText = "敵を討伐した！";
+        }, 1000) 
+        setTimeout(function(){
+          document.getElementById("enemy_name").style.visibility = 'hidden';
+          document.getElementById("life-frame").style.visibility = 'hidden';
+          document.getElementById("image01").style.visibility = 'hidden';
+          document.getElementById('text').innerText = "おめでとう！君の勝利！";
+        }, 2000) 
+        setTimeout(function(){
+          document.getElementById("enemy_name").style.visibility='visible';
+          document.getElementById("image01").style.visibility='visible';
+          document.getElementById("life-frame").style.visibility='visible';
+          document.getElementById('text').innerText = "新たな雑魚クーランが現れた！";
           document.getElementById("image01").src="image/snowman1.png";
           lifeBar.style.width = "100%";
           elem=0;
           document.getElementById("button02").disabled = false;
           document.getElementById("button01").disabled = false;
-        }, 5000) 
-        
+        }, 6000) 
+        break;
     }
   }
   function countreset(){
-    lifeBar.style.width = "100%"    
-    elem=0;
-    document.getElementById("image01").src="image/snowman1.png";
+    document.getElementById("button01").disabled = true;
+    document.getElementById("button02").disabled = true;
+    document.getElementById('text').innerText = "逃げ出した！";
+    document.getElementById("enemy_name").style.visibility = 'hidden';
+    document.getElementById("life-frame").style.visibility = 'hidden';
+    document.getElementById("image01").style.visibility = 'hidden';
+    setTimeout(function(){
+      lifeBar.style.width = "100%"    
+      elem=0;
+      document.getElementById("enemy_name").style.visibility='visible';
+      document.getElementById("image01").style.visibility='visible';
+      document.getElementById("life-frame").style.visibility='visible';
+      document.getElementById('text').innerText = "新たな雑魚クーランが現れた！";
+      document.getElementById("image01").src="image/snowman1.png";
+      document.getElementById("button02").disabled = false;
+      document.getElementById("button01").disabled = false;
+    }, 3000) 
+    
+    
   }
 </script>
 </html>
