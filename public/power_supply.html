@@ -5,9 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Meltian fire it!</title>
   <link rel="stylesheet" href="styles.css">
+  <script src="https://unpkg.com/alpinejs" defer></script>
 </head>
 
 <body>
+  <a href="home.html"><img src="image/atl_supply1.png" width="40px" height="40px" alt="sample"></a>
   <img src="image/gauge1.png"  class="ATKmeter" width="200px" height="90px" style="display: block; margin:auto">
   <div class="meters-wrapper">
     <div class="meter-panel" x-data="meterCtrl">
@@ -21,6 +23,23 @@
   </div>
 </div>
 <script>
+  sessionStorage.setItem('test',128);
+  var testValue = sessionStorage.getItem('test');
+  console.log(testValue);
+  if(testValue == 128){
+    function meterCtrl() {
+    return {
+       percentage: 0,
+        increment() {
+          this.percentage += 10;
+        },
+        rotateStyle() {
+           return `transform: rotate(${Math.floor(180 * (this.percentage / 100))}deg);`;
+       },
+     }
+    }
+  }
+  else{
   function meterCtrl() {
     return {
       percentage: 0,
@@ -32,5 +51,6 @@
       },
     }
   }
+}
 </script>
 </html>
