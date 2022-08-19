@@ -56,6 +56,9 @@ html,body{
 img.needle{
     transform: translate(35%,-170%);
     position: absolute;
+    left: 127%;
+    transform-origin: 87px 10px;
+    bottom: 0;   
 }
 button{
     display: flex;
@@ -79,5 +82,6 @@ button{
   }
 
   .meter {
+    margin: 5px;
     position: relative;
   }
