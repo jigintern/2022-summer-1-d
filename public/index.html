@@ -44,7 +44,19 @@
             window.location.href="/home.html"
             return
           }
-          alert("idかパスワードが間違っています。")
+          if(confirm("アカウントが存在しない可能性があります。\n新しく作りますか？")){
+            const res_post = await fetch("/login",{
+                method:"POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ "loginId":this.id,"password":this.password})
+            })
+            if(res_post.status==201){
+                alert("新規登録しました。")
+                window.location.href="/home.html"
+                return
+            }
+            alert(await res_post.text())
+          }
           return
         }
       }
