@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Meltian fire it!</title>
   <link rel="stylesheet" href="styles.css">
   <script src="https://unpkg.com/alpinejs" defer></script>
+  <script src="//unpkg.com/alpinejs" defer></script>
 </head>
 
 <body>
@@ -21,7 +21,13 @@
             <img src="image/needle2.png" class="needle" width="90px" style="transform: scale(-1, 1);"  x-bind:style="rotateStyle()">
           </div>
           <button x-on:click="increment" style="display: block; margin:auto">ATK回復</button>
+  <div class="meters-wrapper">
+    <div class="meter-panel" x-data="meterCtrl">
+      <div class="meter">
+        <div class="power">
+          <img src="image/needle2.png" class="needle" width="90px" style="transform: scale(-1, 1);"  x-bind:style="rotateStyle()">
         </div>
+        <button x-on:click="increment" style="display: block; margin:auto">ATK回復</button>
       </div>
     </div>
   </div>
@@ -36,8 +42,20 @@
             return `transform: rotate(${Math.floor(180 * (this.percentage / 100))}deg);`;
         },
       }
+</div>
+<script>
+  function meterCtrl() {
+    return {
+      percentage: 0,
+      increment() {
+        this.percentage += 1;
+      },
+      rotateStyle() {
+          return `transform: rotate(${Math.floor(180 * (this.percentage / 100))}deg);`;
+      },
     }
   </script>
 </body>
 
+</script>
 </html>
