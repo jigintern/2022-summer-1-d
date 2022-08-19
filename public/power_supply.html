@@ -30,6 +30,7 @@
       return {
         percentage: 0,
         increment() {
+          this.percentage += 1;
         },
         rotateStyle() {
             return `transform: rotate(${Math.floor(180 * (this.percentage / 100))}deg);`;
