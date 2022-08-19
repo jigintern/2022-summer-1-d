@@ -58,6 +58,9 @@ img.needle{
     position: absolute;
     left: 127%;
     transform-origin: 87px 10px;
+    bottom: 0;
+    transform-origin: right;
+    
 }
 button{
     display: flex;
@@ -72,10 +75,15 @@ button{
 }
 .meters-wrapper {
     display: flex;
+}
 
+.meter-panal {
     display: flex;
     flex-direction: column;
     align-items: center;
+ }
 
+.meter {
     margin: 5px;
     position: relative;
+}
