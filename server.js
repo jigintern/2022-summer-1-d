@@ -2,6 +2,8 @@ import { serve } from "https://deno.land/std@0.151.0/http/server.ts";
 import { serveDir } from "https://deno.land/std@0.151.0/http/file_server.ts";
 import { CSV } from "https://js.sabae.cc/CSV.js";
 import * as postgres from "https://deno.land/x/postgres@v0.14.0/mod.ts";
+// import environment variables with dotenv
+import "https://deno.land/x/dotenv/load.ts";
 
  // Get the connection string from the environment variable "DATABASE_URL"
  const databaseUrl = Deno.env.get("DATABASE_URL");
