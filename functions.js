@@ -1,5 +1,6 @@
-export const accessToAPI={
-  async temperture(latitude,longitude){
+export const easilyAccessToAPI={
+  async temperture(){
+    geolocation
     return await fetch(`/temp?latitude=${latitude}&longitude=${longitude}`)
   },
   async playerData(){
