@@ -69,7 +69,6 @@
   
 </body>
 <script type="text/javascript" >
-  var elem = 0
   const lifeBar = document.getElementById('life-bar')         
   const lifeMark = document.getElementById('life-mark') 
   const enemyList=[
@@ -103,7 +102,6 @@
   document.getElementById('enemy_name').innerText=`${enemy.name}`
   document.getElementById("image01").src=enemy.imgs[enemy_status][0];
   function countUpA(){
-    document.getElementById("image01").innerHTML = ++elem;
     life_enemy-=atk;
     atkGauge-=dec_atkGauge;
     hp-=atk_enemy;
@@ -115,85 +113,76 @@
       enemy_status=1
     else
       enemy_status=0
-    switch (elem){
-      case 0:
-        break;
-      case 1:
-      case 2:
-      case 3:
+    setTimeout(function(){
+      document.getElementById('text').innerText = "攻撃をした!";
+      document.getElementById("button01").disabled = true;
+      document.getElementById("button02").disabled = true;
+      document.getElementById("image03").style.filter="opacity(0.4) drop-shadow(0 0 0 blue)";
+    }, 1)
+    if(lifePercentage_enemy==0){
       setTimeout(function(){
-        document.getElementById('text').innerText = "攻撃をした!";
-        document.getElementById("button01").disabled = true;
-        document.getElementById("button02").disabled = true;
-        document.getElementById("image03").style.filter="opacity(0.4) drop-shadow(0 0 0 blue)";
-        }, 1)
-      if(lifePercentage_enemy==0){
-        setTimeout(function(){
-          document.getElementById("needle03").style.transform=`rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
-          document.getElementById("image03").style.filter="none";
-          document.getElementById("image01").src=enemy.imgs[enemy_status][1];
-          lifeBar.style.width = `${lifePercentage_enemy*100}%`;   
-          document.getElementById('text').innerText = "敵を討伐した！";
-        }, 1000) 
-        setTimeout(function(){
-          document.getElementById("enemy_name").style.visibility = 'hidden';
-          document.getElementById("life-frame").style.visibility = 'hidden';
-          document.getElementById("image01").style.visibility = 'hidden';
-          document.getElementById('text').innerText = "おめでとう！君の勝利！";
-        }, 2000) 
-        setTimeout(function(){
-          elem=0
-          enemy=enemyList[0]
-          enemy_status = 0
-          maxlife_enemy = enemy.maxlife
-          life_enemy = maxlife_enemy              
-          atk_enemy = enemy.atk
-          atk = 273
-          maxhp = 273*3
-          hp = maxhp
-          atkGauge=70
-          document.getElementById("enemy_name").style.visibility='visible';
-          document.getElementById("image01").style.visibility='visible';
-          document.getElementById("life-frame").style.visibility='visible';
-          document.getElementById('enemy_name').innerText=`${enemy.name}`
-          document.getElementById('text').innerText = `新たな${enemy.name}が現れた！`;
-          document.getElementById("image01").src=enemy.imgs[enemy_status][0];
-          document.getElementById("needle02").style.transform=`rotate(${Math.floor(180 * (hp / maxhp))}deg)`;
-          document.getElementById("needle03").style.transform=`rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
-          lifeBar.style.width = "100%";
-          document.getElementById("button02").disabled = false;
-          document.getElementById("button01").disabled = false;
-        }, 6000) 
-        }
-      else{
-        setTimeout(function(){
-          document.getElementById("image01").src=enemy.imgs[enemy_status][1];
-          document.getElementById("needle03").style.transform=`rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
-          document.getElementById("image03").style.filter="none";
-        }, 250) 
-        setTimeout(function(){
-          lifeBar.style.width = `${lifePercentage_enemy*100}%`;
-        }, 500) 
-        setTimeout(function(){
-          document.getElementById('text').innerText = `${atk}kのダメージを与えた!`;
-          document.getElementById("image01").src=enemy.imgs[enemy_status][0];
-        }, 1000) 
-        setTimeout(function(){
-          document.getElementById('text').innerText = "クーランが攻撃してきた!";
-        }, 2000) 
-        setTimeout(function(){
-          document.getElementById("image02").style.filter="opacity(0.4) drop-shadow(0 0 0 red)";
-        }, 2250) 
-        setTimeout(function(){
-          document.getElementById("needle02").style.transform=`rotate(${Math.floor(180 * (hp / maxhp))}deg)`;
-          document.getElementById("image02").style.filter="none";
-          document.getElementById('text').innerText = `${atk_enemy}Kのダメージを受けた!`;
-          document.getElementById("button02").disabled = false;
-          document.getElementById("button01").disabled = false;
-        }, 3000)
-      } 
-        break;
+        document.getElementById("needle03").style.transform=`rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
+        document.getElementById("image03").style.filter="none";
+        document.getElementById("image01").src=enemy.imgs[enemy_status][1];
+        lifeBar.style.width = `${lifePercentage_enemy*100}%`;   
+        document.getElementById('text').innerText = "敵を討伐した！";
+      }, 1000) 
+      setTimeout(function(){
+        document.getElementById("enemy_name").style.visibility = 'hidden';
+        document.getElementById("life-frame").style.visibility = 'hidden';
+        document.getElementById("image01").style.visibility = 'hidden';
+        document.getElementById('text').innerText = "おめでとう！君の勝利！";
+      }, 2000) 
+      setTimeout(function(){
+        enemy=enemyList[0]
+        enemy_status = 0
+        maxlife_enemy = enemy.maxlife
+        life_enemy = maxlife_enemy              
+        atk_enemy = enemy.atk
+        atk = 273
+        maxhp = 273*3
+        hp = maxhp
+        atkGauge=70
+        document.getElementById("enemy_name").style.visibility='visible';
+        document.getElementById("image01").style.visibility='visible';
+        document.getElementById("life-frame").style.visibility='visible';
+        document.getElementById('enemy_name').innerText=`${enemy.name}`
+        document.getElementById('text').innerText = `新たな${enemy.name}が現れた！`;
+        document.getElementById("image01").src=enemy.imgs[enemy_status][0];
+        document.getElementById("needle02").style.transform=`rotate(${Math.floor(180 * (hp / maxhp))}deg)`;
+        document.getElementById("needle03").style.transform=`rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
+        lifeBar.style.width = "100%";
+        document.getElementById("button02").disabled = false;
+        document.getElementById("button01").disabled = false;
+      }, 6000) 
     }
+    else{
+      setTimeout(function(){
+        document.getElementById("image01").src=enemy.imgs[enemy_status][1];
+        document.getElementById("needle03").style.transform=`rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
+        document.getElementById("image03").style.filter="none";
+      }, 250) 
+      setTimeout(function(){
+        lifeBar.style.width = `${lifePercentage_enemy*100}%`;
+      }, 500) 
+      setTimeout(function(){
+        document.getElementById('text').innerText = `${atk}kのダメージを与えた!`;
+        document.getElementById("image01").src=enemy.imgs[enemy_status][0];
+      }, 1000) 
+      setTimeout(function(){
+        document.getElementById('text').innerText = "クーランが攻撃してきた!";
+      }, 2000) 
+      setTimeout(function(){
+        document.getElementById("image02").style.filter="opacity(0.4) drop-shadow(0 0 0 red)";
+      }, 2250) 
+      setTimeout(function(){
+        document.getElementById("needle02").style.transform=`rotate(${Math.floor(180 * (hp / maxhp))}deg)`;
+        document.getElementById("image02").style.filter="none";
+        document.getElementById('text').innerText = `${atk_enemy}Kのダメージを受けた!`;
+        document.getElementById("button02").disabled = false;
+        document.getElementById("button01").disabled = false;
+      }, 3000)
+    } 
   }
   function countreset(){
     document.getElementById("button01").disabled = true;
