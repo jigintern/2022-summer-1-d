@@ -9,13 +9,13 @@
 </head>
 
 <body>
-  <a href="home.html"><img src="image/atl_supply1.png" width="40px" height="40px" alt="sample"></a>
-  <img src="image/gauge1.png"  class="ATKmeter" width="200px" height="90px" style="display: block; margin:auto">
+  <a href="/pages/home/home.html"><img src="/image/atl_supply1.png" width="40px" height="40px"></a>
+  <img src="/image/gauge1.png"  class="ATKmeter" width="200px" height="90px" style="display: block; margin:auto">
   <div class="meters-wrapper">
     <div class="meter-panel" x-data="meterCtrl">
       <div class="meter">
         <div class="power">
-          <img src="image/needle2.png" class="needle" width="90px" style="transform: scale(-1, 1);"  x-bind:style="rotateStyle()">
+          <img src="/image/needle2.png" class="needle" width="90px" style="transform: scale(-1, 1);"  x-bind:style="rotateStyle()">
         </div>
         <button x-on:click="increment" style="display: block; margin:auto">ATK回復</button>
       </div>

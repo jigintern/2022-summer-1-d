@@ -12,7 +12,7 @@
 <body>
   <div>
     <div class="backgraund1">
-      <a href="home.html"><img src="image/dialog.png" width="30px" height="30px" alt="sample"></a>
+      <a href="/pages/home/home.html"><img src="/image/dialog.png" width="30px" height="30px" alt="sample"></a>
     </div>
     <div class="background2" >
       <div id="life-frame">
@@ -26,19 +26,19 @@
       </div>
       <div class="vs">
         <div class="enemy" style="text-align: center">
-          <img id="image01" src="image/snowman1.png" width="70%" alt="sample">
+          <img id="image01" src="/image/snowman1.png" width="70%" alt="sample">
         </div>
       </div>
       <div class="position">
-          <img id="image02" src="image/gauge/hpgauge100.png" width="40%" alt="sample">
-          <img id="image03" src="image/gauge/pwgauge70.png" width="40%" alt="sample">
+          <img id="image02" src="/image/gauge/hpgauge100.png" width="40%" alt="sample">
+          <img id="image03" src="/image/gauge/pwgauge70.png" width="40%" alt="sample">
       </div>
       <div class="position" >
         <div class="button1">
-          <input type="image" id="button01" src="image/atk_button.png" onclick="countUpA()" width="100%" height="100%" alt="HPmeter">
+          <input type="image" id="button01" src="/image/atk_button.png" onclick="countUpA()" width="100%" height="100%" alt="HPmeter">
         </div>
         <div class="button2" >
-            <input type="image" id="button02" src="image/run_button.png"  onclick="countreset()" width="100%" height="100%" alt="POWERmeter">
+            <input type="image" id="button02" src="/image/run_button.png"  onclick="countreset()" width="100%" height="100%" alt="POWERmeter">
         </div>
       </div>
       <div id="text" class="box">
@@ -61,34 +61,34 @@
     document.getElementById("image01").innerHTML = ++elem;
     switch (elem){
       case 0:
-        document.getElementById("image01").src="image/snowman1.png";
+        document.getElementById("image01").src="/image/snowman1.png";
         break;
       case 1:
       setTimeout(function(){
         document.getElementById('text').innerText = "攻撃をした!";
         document.getElementById("button01").disabled = true;
         document.getElementById("button02").disabled = true;
-        document.getElementById("image03").src="image/gauge/pwdamagegauge70.png";
+        document.getElementById("image03").src="/image/gauge/pwdamagegauge70.png";
         }, 1)
         setTimeout(function(){
-          document.getElementById("image01").src="image/snowman4.png";
-          document.getElementById("image03").src="image/gauge/pwgauge50.png";
+          document.getElementById("image01").src="/image/snowman4.png";
+          document.getElementById("image03").src="/image/gauge/pwgauge50.png";
         }, 250) 
         setTimeout(function(){
           lifeBar.style.width = "66%";
         }, 500) 
         setTimeout(function(){
           document.getElementById('text').innerText = "273kのダメージを与えた!";
-          document.getElementById("image01").src="image/snowman2.png";
+          document.getElementById("image01").src="/image/snowman2.png";
         }, 1000) 
         setTimeout(function(){
           document.getElementById('text').innerText = "クーランが攻撃してきた!";
         }, 2000) 
         setTimeout(function(){
-          document.getElementById("image02").src="image/gauge/hpdamagegauge100.png";
+          document.getElementById("image02").src="/image/gauge/hpdamagegauge100.png";
         }, 2250) 
         setTimeout(function(){
-          document.getElementById("image02").src="image/gauge/hpgauge66.png";
+          document.getElementById("image02").src="/image/gauge/hpgauge66.png";
           document.getElementById('text').innerText = "273Kのダメージを受けた!";
           document.getElementById("button02").disabled = false;
           document.getElementById("button01").disabled = false;
@@ -99,27 +99,27 @@
         document.getElementById('text').innerText = "攻撃をした!";
         document.getElementById("button01").disabled = true;
         document.getElementById("button02").disabled = true;
-        document.getElementById("image03").src="image/gauge/pwdamagegauge50.png";
+        document.getElementById("image03").src="/image/gauge/pwdamagegauge50.png";
         }, 1)
         setTimeout(function(){
-          document.getElementById("image01").src="image/snowman5.png";
-          document.getElementById("image03").src="image/gauge/pwgauge30.png";
+          document.getElementById("image01").src="/image/snowman5.png";
+          document.getElementById("image03").src="/image/gauge/pwgauge30.png";
         }, 250) 
         setTimeout(function(){
           lifeBar.style.width = "33%";  
         }, 500) 
         setTimeout(function(){
           document.getElementById('text').innerText = "273kのダメージを与えた!";
-          document.getElementById("image01").src="image/snowman3.png";
+          document.getElementById("image01").src="/image/snowman3.png";
         }, 1000) 
         setTimeout(function(){
           document.getElementById('text').innerText = "クーランが攻撃してきた!";
         }, 2000) 
         setTimeout(function(){
-          document.getElementById("image02").src="image/gauge/hpdamagegauge66.png";
+          document.getElementById("image02").src="/image/gauge/hpdamagegauge66.png";
         }, 2250) 
         setTimeout(function(){
-          document.getElementById("image02").src="image/gauge/hpgauge30.png";
+          document.getElementById("image02").src="/image/gauge/hpgauge30.png";
           document.getElementById('text').innerText = "273Kのダメージを受けた!";
           document.getElementById("button02").disabled = false;
           document.getElementById("button01").disabled = false;
@@ -127,14 +127,14 @@
         break;
       case 3:
         setTimeout(function(){
-          document.getElementById("image03").src="image/gauge/pwdamagegauge30.png";
+          document.getElementById("image03").src="/image/gauge/pwdamagegauge30.png";
           document.getElementById('text').innerText = "攻撃をした!";
           document.getElementById("button01").disabled = true;
           document.getElementById("button02").disabled = true;
         }, 1) 
         setTimeout(function(){
-          document.getElementById("image03").src="image/gauge/pwgauge10.png";
-          document.getElementById("image01").src="image/snowman6.png";
+          document.getElementById("image03").src="/image/gauge/pwgauge10.png";
+          document.getElementById("image01").src="/image/snowman6.png";
           lifeBar.style.width = "0%";   
           document.getElementById('text').innerText = "敵を討伐した！";
         }, 1000) 
@@ -149,9 +149,9 @@
           document.getElementById("image01").style.visibility='visible';
           document.getElementById("life-frame").style.visibility='visible';
           document.getElementById('text').innerText = "新たな雑魚クーランが現れた！";
-          document.getElementById("image01").src="image/snowman1.png";
-          document.getElementById("image03").src="image/gauge/pwgauge70.png";
-          document.getElementById("image02").src="image/gauge/hpgauge100.png";
+          document.getElementById("image01").src="/image/snowman1.png";
+          document.getElementById("image03").src="/image/gauge/pwgauge70.png";
+          document.getElementById("image02").src="/image/gauge/hpgauge100.png";
           lifeBar.style.width = "100%";
           elem=0;
           document.getElementById("button02").disabled = false;
@@ -174,9 +174,9 @@
       document.getElementById("image01").style.visibility='visible';
       document.getElementById("life-frame").style.visibility='visible';
       document.getElementById('text').innerText = "新たな雑魚クーランが現れた！";
-      document.getElementById("image01").src="image/snowman1.png";
-      document.getElementById("image03").src="image/gauge/pwgauge70.png";
-      document.getElementById("image02").src="image/gauge/hpgauge100.png";
+      document.getElementById("image01").src="/image/snowman1.png";
+      document.getElementById("image03").src="/image/gauge/pwgauge70.png";
+      document.getElementById("image02").src="/image/gauge/hpgauge100.png";
       document.getElementById("button02").disabled = false;
       document.getElementById("button01").disabled = false;
     }, 3000) 
