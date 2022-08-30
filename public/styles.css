@@ -1,102 +1,86 @@
-*{
-    box-sizing: border-box;
+* {
+  box-sizing: border-box;
 }
 
-html,body{
-    height: 100%;
-    width: 100%;
-    background-color:#faffffff ;
-}
-.background{
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-    
-}
-.vs{
-    display: flex;
-    justify-content: center;
-}
-.heel{
-    display: flex;
-    justify-content: center;
-}
-.top{
-    margin-bottom: 30px;
-}
-.hp{
-    width: 100%;
-}
-.bottom{
-    margin-top: 30Px;
-}
-.power{
-    width: 100%;
+html, body {
+  height: 100%;
+  width: 100%;
+  /* CSS Variables */
+  --color-primary: #ef2626;
+  --color-secondary: #265AEF;
+  --color-accent: #470055;
+  --color-background: #f2fffe;
+  --color-surface: white;
+  --color-text: #000;
+  --color-text-disabled: #aaa;
 }
 
-.box{
-    text-align: center;
-    display: flex;
-    margin:15px;
-    width:100%;
-    height:130px;
-    background-size:cover;
-    background-color:rgba(255, 255, 255,1.0);
-    background-blend-mode:lighten;
-    border:4px solid #008b8b;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-.button{
-    display: block;
-    margin:auto;
-    width: 200px;
-    height: 80px;
-    
-}
-.logo{
-    width: 100%;
+.background {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.power{
-    position: relative;
+.vs {
+  display: flex;
+  justify-content: center;
 }
 
-img.needle{
-    transform: translate(35%,-170%);
-    position: absolute;
-    left: 127%;
-    transform-origin: 87px 10px;
-    bottom: 0;
-    transform-origin: right;
+.heel {
+  display: flex;
+  justify-content: center;
 }
 
-button{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 4px 8px;
-    color: var(--color-text-dark);
-    background-color: var(--color-background-light);
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+.top {
+  margin-bottom: 30px;
 }
+
+.hp {
+  width: 100%;
+}
+
+.bottom {
+  margin-top: 30px;
+}
+
+.power {
+  width: 100%;
+}
+
+.button {
+  display: block;
+  margin: auto;
+  width: 200px;
+  height: 80px;
+}
+
+.power {
+  position: relative;
+}
+
+img.needle {
+  transform: translate(35%,-170%);
+  position: absolute;
+  left: 127%;
+  transform-origin: 87px 10px;
+  bottom: 0;
+  transform-origin: right;
+}
+
 .meters-wrapper {
-    display: flex;
+  display: flex;
 }
 
 .meter-panal {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
  }
 
 .meter {
-    margin: 5px;
-    position: relative;
+  margin: 5px;
+  position: relative;
 }
