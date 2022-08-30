@@ -26,31 +26,18 @@
   sessionStorage.setItem('test',128);
   var testValue = sessionStorage.getItem('test');
   console.log(testValue);
-  if(testValue == 128){
-    function meterCtrl() {
-    return {
-       percentage: 0,
-        increment() {
-          this.percentage += 10;
-        },
-        rotateStyle() {
-           return `transform: rotate(${Math.floor(180 * (this.percentage / 100))}deg);`;
-       },
-     }
-    }
-  }
-  else{
   function meterCtrl() {
     return {
       percentage: 0,
+      quantity_increment: (testValue == 128)?10:1,
       increment() {
-        this.percentage += 1;
+        this.percentage += this.quantity_increment;
       },
       rotateStyle() {
-          return `transform: rotate(${Math.floor(180 * (this.percentage / 100))}deg);`;
+         return `transform: rotate(${Math.floor(180 * (this.percentage / 100))}deg);`;
       },
     }
   }
-}
+  
 </script>
 </html>
