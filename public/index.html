@@ -39,7 +39,6 @@
             return
           const result = await fetch(`/login?loginId=${this.id}&password=${this.password}`)
           const res = await result.text()
-          alert(result.status)
           if(result.status==200){
             alert("ok")
             window.location.href=`/home.html?id=${(await result.json()).id}`
