@@ -1,6 +1,12 @@
 export const easilyAccessToAPI={
   async temperture(){
-    geolocation
+    let latitude,longitude;
+    navigator.geolocation.getCurrentPosition((position)=>{
+      const data = position.coords;
+			// データの整理
+			latitude = data.latitude;
+			longitude = data.longitude;
+    })
     return await fetch(`/temp?latitude=${latitude}&longitude=${longitude}`)
   },
   async playerData(){
