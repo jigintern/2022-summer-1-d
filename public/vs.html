@@ -76,11 +76,12 @@
         document.getElementById('text').innerText = "攻撃をした!";
         document.getElementById("button01").disabled = true;
         document.getElementById("button02").disabled = true;
-        document.getElementById("image03").src="image/gauge/pwdamagegauge70.png";
+        document.getElementById("image03").style.filter="opacity(0.4) drop-shadow(0 0 0 blue)";
         }, 1)
         setTimeout(function(){
           document.getElementById("image01").src="image/snowman4.png";
           document.getElementById("image03").src="image/gauge/pwgauge50.png";
+          document.getElementById("image03").style.filter="none";
         }, 250) 
         setTimeout(function(){
           lifeBar.style.width = `${life_enemy/maxlife_enemy*100}%`;
@@ -93,10 +94,11 @@
           document.getElementById('text').innerText = "クーランが攻撃してきた!";
         }, 2000) 
         setTimeout(function(){
-          document.getElementById("image02").src="image/gauge/hpdamagegauge100.png";
+          document.getElementById("image02").style.filter="opacity(0.4) drop-shadow(0 0 0 red)";
         }, 2250) 
         setTimeout(function(){
           document.getElementById("image02").src="image/gauge/hpgauge66.png";
+          document.getElementById("image02").style.filter="none";
           document.getElementById('text').innerText = `${atk_enemy}Kのダメージを受けた!`;
           document.getElementById("button02").disabled = false;
           document.getElementById("button01").disabled = false;
@@ -107,11 +109,12 @@
         document.getElementById('text').innerText = "攻撃をした!";
         document.getElementById("button01").disabled = true;
         document.getElementById("button02").disabled = true;
-        document.getElementById("image03").src="image/gauge/pwdamagegauge50.png";
+        document.getElementById("image03").style.filter="opacity(0.4) drop-shadow(0 0 0 blue)";
         }, 1)
         setTimeout(function(){
           document.getElementById("image01").src="image/snowman5.png";
           document.getElementById("image03").src="image/gauge/pwgauge30.png";
+          document.getElementById("image03").style.filter="none";
         }, 250) 
         setTimeout(function(){
           lifeBar.style.width = `${life_enemy/maxlife_enemy*100}%`;  
@@ -124,10 +127,11 @@
           document.getElementById('text').innerText = "クーランが攻撃してきた!";
         }, 2000) 
         setTimeout(function(){
-          document.getElementById("image02").src="image/gauge/hpdamagegauge66.png";
+          document.getElementById("image02").style.filter="opacity(0.4) drop-shadow(0 0 0 red)";
         }, 2250) 
         setTimeout(function(){
           document.getElementById("image02").src="image/gauge/hpgauge30.png";
+          document.getElementById("image02").style.filter="none";
           document.getElementById('text').innerText = `${atk_enemy}Kのダメージを受けた!`;
           document.getElementById("button02").disabled = false;
           document.getElementById("button01").disabled = false;
@@ -135,13 +139,14 @@
         break;
       case 3:
         setTimeout(function(){
-          document.getElementById("image03").src="image/gauge/pwdamagegauge30.png";
+        document.getElementById("image03").style.filter="opacity(0.4) drop-shadow(0 0 0 blue)";
           document.getElementById('text').innerText = "攻撃をした!";
           document.getElementById("button01").disabled = true;
           document.getElementById("button02").disabled = true;
         }, 1) 
         setTimeout(function(){
           document.getElementById("image03").src="image/gauge/pwgauge10.png";
+          document.getElementById("image03").style.filter="none";
           document.getElementById("image01").src="image/snowman6.png";
           lifeBar.style.width = `${life_enemy/maxlife_enemy*100}%`;   
           document.getElementById('text').innerText = "敵を討伐した！";
