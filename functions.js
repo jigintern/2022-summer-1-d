@@ -1,13 +1,30 @@
 export const easilyAccessToAPI={
   async temperture(){
-    let latitude,longitude;
-    navigator.geolocation.getCurrentPosition((position)=>{
-      const data = position.coords;
-			// データの整理
-			latitude = data.latitude;
-			longitude = data.longitude;
-    })
-    return parseFloat(await fetch(`/temp?latitude=${latitude}&longitude=${longitude}`))
+    const getLocation = async() => {
+      let lat,lon;
+      const getCurrentPosition = () => {
+        return new Promise((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(resolve, reject);
+        });
+      };
+      try {
+        const position = await getCurrentPosition(); // 位置情報の取得を試行
+        console.log(position.coords);
+        lat  = position.coords.latitude;              // 緯度を取得
+        lon  = position.coords.longitude;             // 経度を取得
+        accu = position.coords.accuracy;              // その精度を取得
+      } catch(e) {
+        console.log(e);
+        lat = 40;                                     // ダミーデータ
+        lon = 140;
+      } finally {
+        /*const testTxt = document.querySelector("#location");
+        testTxt.innerHTML = `経度：${lat}<br>緯度：${lon}<br>`;*/
+        return {lat,lon};
+      }
+    }
+    const currentLocation=await getLocation()
+    return temp = parseFloat(await(await fetch(`/temp?latitude=${currentLocation.lat}&longitude=${currentLocation.lon}`)).text())
   },
   async playerData(){
       return (await(await fetch("/player"+location.search)).json())[0]
