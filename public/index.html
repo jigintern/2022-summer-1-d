@@ -6,20 +6,19 @@
     <title>Meltian fire it!</title>
     <link rel="stylesheet" href="reset.css"/>
     <link rel="stylesheet" href="styles.css"/>
+    <link rel="stylesheet" href="index.css"/>
     <script src="https://unpkg.com/alpinejs" defer></script>
   </head>
   <body>
     <div class="background">
       <img class="logo" src="image/meltian_fire_it_logo.png">
       <div class="panel" x-data="loginFormCtrl">
-        <div class="box">
-          <div>
-                ID   <input id="id" type="text" x-model="id" placeholder="ID"><br>
-            password <input id="password" type="password" x-model="password" placeholder="password"><br><br>
-          </div>
-        </div>
-        <a class="button" x-bind:class="submitDisableFlag() ? 'disabled' : ''" x-on:click="submit">
-            <input type="submit" value="ゲームを始める" class="button">
+        <input id="id" type="text" x-model="id" placeholder="ID">
+        <input id="password" type="password" x-model="password" placeholder="password">
+        <a class="button"
+            x-bind:class="submitDisableFlag() ? 'disabled' : ''"
+            x-on:click="submit">
+          ゲームを始める
         </a>
       </div>
     </div>
