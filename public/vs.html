@@ -91,6 +91,7 @@
     life_enemy-=atk;
     atkGauge-=dec_atkGauge;
     hp-=atk_enemy;
+    const lifePercentage_enemy=life_enemy/maxlife_enemy
     if(life_enemy<0) life_enemy=0
     switch (elem){
       case 0:
@@ -109,7 +110,7 @@
           document.getElementById("image03").style.filter="none";
         }, 250) 
         setTimeout(function(){
-          lifeBar.style.width = `${life_enemy/maxlife_enemy*100}%`;
+          lifeBar.style.width = `${lifePercentage_enemy}`;
         }, 500) 
         setTimeout(function(){
           document.getElementById('text').innerText = `${atk}kのダメージを与えた!`;
@@ -142,7 +143,7 @@
           document.getElementById("image03").style.filter="none";
         }, 250) 
         setTimeout(function(){
-          lifeBar.style.width = `${life_enemy/maxlife_enemy*100}%`;  
+          lifeBar.style.width = `${lifePercentage_enemy}`;  
         }, 500) 
         setTimeout(function(){
           document.getElementById('text').innerText = `${atk}kのダメージを与えた!`;
@@ -173,7 +174,7 @@
           document.getElementById("needle03").style.transform=`rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
           document.getElementById("image03").style.filter="none";
           document.getElementById("image01").src="image/snowman6.png";
-          lifeBar.style.width = `${life_enemy/maxlife_enemy*100}%`;   
+          lifeBar.style.width = `${lifePercentage_enemy}`;   
           document.getElementById('text').innerText = "敵を討伐した！";
         }, 1000) 
         setTimeout(function(){
