@@ -24,7 +24,7 @@ export const easilyAccessToAPI={
       }
     }
     const currentLocation=await getLocation()
-    return temp = parseFloat(await(await fetch(`/temp?latitude=${currentLocation.lat}&longitude=${currentLocation.lon}`)).text())
+    return parseFloat(await(await fetch(`/temp?latitude=${currentLocation.lat}&longitude=${currentLocation.lon}`)).text())
   },
   async playerData(){
       return (await(await fetch("/player"+location.search)).json())[0]
