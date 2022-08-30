@@ -27,3 +27,7 @@ https://jigintern-2022-summer-1-d.deno.dev/
 
 1. run `git config commit.template .commit_template`
 2. `git commit` to commit with template
+
+## 関連
+
+- this project use [The New CSS Reset](https://github.com/elad2412/the-new-css-reset)
