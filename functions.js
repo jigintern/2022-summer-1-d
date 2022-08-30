@@ -23,7 +23,7 @@ export const easilyAccessToAPI={
         return {lat,lon};
       }
     }
-    const currentLocation=await getLocation()
+    const currentLocation = await getLocation()
     return parseFloat(await(await fetch(`/temp?latitude=${currentLocation.lat}&longitude=${currentLocation.lon}`)).text())
   },
   async playerData(){
