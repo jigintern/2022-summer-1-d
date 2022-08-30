@@ -10,10 +10,10 @@ export const easilyAccessToAPI={
     return await fetch(`/temp?latitude=${latitude}&longitude=${longitude}`)
   },
   async playerData(){
-      return (await(await fetch(location.href)).json())[0]
+      return (await(await fetch("/player"+location.serch)).json())[0]
   },
   async save(hp,atk){
-    await fetch(location.href, {
+    await fetch("/player"+location.serch, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ hp,atk })
