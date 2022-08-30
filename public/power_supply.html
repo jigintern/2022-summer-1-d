@@ -6,7 +6,6 @@
   <title>Meltian fire it!</title>
   <link rel="stylesheet" href="styles.css">
   <script src="https://unpkg.com/alpinejs" defer></script>
-  <script src="../functions.js"></script>
 </head>
 
 <body>
@@ -36,7 +35,7 @@
     { temp:-273, get:1, prompt:"寒そう！体を温めよう！" }
   ]
   const getTbl = function(){
-    const temp = await easilyAccessToAPI.temperture()//getTemp
+    const temp = 27//getTemp
     const tbl = location.pathname=="/power_supply.html"?tbl_power:tbl_hp
     for(const i of tbl){
       if(i.temp<temp)
