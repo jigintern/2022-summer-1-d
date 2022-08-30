@@ -78,10 +78,13 @@
   let life_enemy = maxlife_enemy              
   let atk_enemy = 273
   let atk = 273
-  let hp = 273*3
+  let maxhp = 273*3
+  let hp = maxhp
   let atkGauge=70
   const dec_atkGauge=20
   lifeBar.style.width = "100%"    
+  document.getElementById("needle02").style.transform=`rotate(${Math.floor(180 * (hp / maxhp))}deg)`;
+  document.getElementById("needle03").style.transform=`rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
   let obj = document.getElementById('text')
   function countUpA(){
     document.getElementById("image01").innerHTML = ++elem;
@@ -102,7 +105,7 @@
         }, 1)
         setTimeout(function(){
           document.getElementById("image01").src="image/snowman4.png";
-          document.getElementById("image03").src="image/gauge/pwgauge50.png";
+          document.getElementById("needle03").style.transform=`rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
           document.getElementById("image03").style.filter="none";
         }, 250) 
         setTimeout(function(){
@@ -119,7 +122,7 @@
           document.getElementById("image02").style.filter="opacity(0.4) drop-shadow(0 0 0 red)";
         }, 2250) 
         setTimeout(function(){
-          document.getElementById("image02").src="image/gauge/hpgauge66.png";
+          document.getElementById("needle02").style.transform=`rotate(${Math.floor(180 * (hp / maxhp))}deg)`;
           document.getElementById("image02").style.filter="none";
           document.getElementById('text').innerText = `${atk_enemy}Kのダメージを受けた!`;
           document.getElementById("button02").disabled = false;
@@ -135,7 +138,7 @@
         }, 1)
         setTimeout(function(){
           document.getElementById("image01").src="image/snowman5.png";
-          document.getElementById("image03").src="image/gauge/pwgauge30.png";
+          document.getElementById("needle03").style.transform=`rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
           document.getElementById("image03").style.filter="none";
         }, 250) 
         setTimeout(function(){
@@ -152,7 +155,7 @@
           document.getElementById("image02").style.filter="opacity(0.4) drop-shadow(0 0 0 red)";
         }, 2250) 
         setTimeout(function(){
-          document.getElementById("image02").src="image/gauge/hpgauge30.png";
+          document.getElementById("needle02").style.transform=`rotate(${Math.floor(180 * (hp / maxhp))}deg)`;
           document.getElementById("image02").style.filter="none";
           document.getElementById('text').innerText = `${atk_enemy}Kのダメージを受けた!`;
           document.getElementById("button02").disabled = false;
@@ -167,7 +170,7 @@
           document.getElementById("button02").disabled = true;
         }, 1) 
         setTimeout(function(){
-          document.getElementById("image03").src="image/gauge/pwgauge10.png";
+          document.getElementById("needle03").style.transform=`rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
           document.getElementById("image03").style.filter="none";
           document.getElementById("image01").src="image/snowman6.png";
           lifeBar.style.width = `${life_enemy/maxlife_enemy*100}%`;   
@@ -185,11 +188,13 @@
           document.getElementById("life-frame").style.visibility='visible';
           document.getElementById('text').innerText = "新たな雑魚クーランが現れた！";
           document.getElementById("image01").src="image/snowman1.png";
-          document.getElementById("image03").src="image/gauge/pwgauge70.png";
-          document.getElementById("image02").src="image/gauge/hpgauge100.png";
+          document.getElementById("needle02").style.transform=`rotate(${Math.floor(180 * (hp / maxhp))}deg)`;
+          document.getElementById("needle03").style.transform=`rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
           lifeBar.style.width = "100%";
           elem=0;
           life_enemy=maxlife_enemy;
+          atkGauge=70
+          hp=maxhp
           document.getElementById("button02").disabled = false;
           document.getElementById("button01").disabled = false;
         }, 6000) 
