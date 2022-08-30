@@ -58,8 +58,7 @@
     }
     const currentLocation = await getLocation()
     const temp = await (await fetch(`/temp?latitude=${currentLocation.lat}&longitude=${currentLocation.lon}}`)).text()//getTemp
-    const tbl = location.pathname=="/power_supply.html"?tbl_power:tbl_hp
-    for(const i of tbl){
+    for(const i of tbl_hp){
       if(i.temp < temp)
         return i
     }
