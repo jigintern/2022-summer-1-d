@@ -226,7 +226,7 @@ serve(async (req) => {
         `)??[{password:null}]).rows[0];//TABLEのusers.passwordはnull非許容
 
         if(result.password==HashedPassword)
-          return new Response("ok");
+          return new Response(result.id);
         else
           return new Response("failed",{ status:400 });
       }
@@ -243,9 +243,11 @@ serve(async (req) => {
             return new Response("same id was already used.",{status:400})
           }
         }
-
+        const result = (await connection.queryObject`
+          SELECT * FROM users WHERE loginid=${fill.loginId}
+        `).rows[0];
         // Return a 201 Created response
-        return new Response("", { status: 201 });
+        return new Response(result.id, { status: 201 });
       }
       default: // If this is neither a POST, or a GET return a 405 response.
       return new Response("Method Not Allowed", { status: 405 });
