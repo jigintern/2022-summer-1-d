@@ -86,6 +86,8 @@
   function countUpA(){
     document.getElementById("image01").innerHTML = ++elem;
     life_enemy-=atk;
+    atkGauge-=dec_atkGauge;
+    hp-=atk_enemy;
     if(life_enemy<0) life_enemy=0
     switch (elem){
       case 0:
