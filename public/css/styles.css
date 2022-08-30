@@ -13,6 +13,7 @@ html, body {
   --color-surface: white;
   --color-text: #000;
   --color-text-disabled: #aaa;
+  --color-shadow: gray;
 }
 
 .background {
@@ -22,43 +23,6 @@ html, body {
   align-items: center;
   flex-direction: column;
   justify-content: center;
-}
-
-.vs {
-  display: flex;
-  justify-content: center;
-}
-
-.heel {
-  display: flex;
-  justify-content: center;
-}
-
-.top {
-  margin-bottom: 30px;
-}
-
-.hp {
-  width: 100%;
-}
-
-.bottom {
-  margin-top: 30px;
-}
-
-.power {
-  width: 100%;
-}
-
-.button {
-  display: block;
-  margin: auto;
-  width: 200px;
-  height: 80px;
-}
-
-.power {
-  position: relative;
 }
 
 img.needle {
