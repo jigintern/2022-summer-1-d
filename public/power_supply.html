@@ -26,12 +26,28 @@
   sessionStorage.setItem('test',128);
   var testValue = sessionStorage.getItem('test');
   console.log(testValue);
+  const tbl_power=[
+    { temp:44,  get:50, prompt:"げーむなんてやってるばあいじゃないぞ！" },
+    { temp:39,  get:30, prompt:"室内へ避難しよう！" },
+    { temp:34,  get:20, prompt:"休憩場所を探そう！" },
+    { temp:29,  get:10, prompt:"熱中症に気を付けるべき！" },
+    { temp:23,  get:5,  prompt:"気温は最適！体を動かそう！" },
+    { temp:-273, get:1, prompt:"寒そう！体を温めよう！" }
+  ]
+  const getTbl = function(){
+    const temp = 27//getTemp
+    const tbl = location.pathname=="/power_supply.html"?tbl_power:tbl_hp
+    for(const i of tbl){
+      if(i.temp<temp)
+        return i
+    }
+  }
   function meterCtrl() {
     return {
       percentage: 0,
-      quantity_increment: (testValue == 128)?10:1,
+      infomation: getTbl(),
       increment() {
-        this.percentage += this.quantity_increment;
+        this.percentage += this.infomation.get;
       },
       rotateStyle() {
          return `transform: rotate(${Math.floor(180 * (this.percentage / 100))}deg);`;
