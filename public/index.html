@@ -41,7 +41,7 @@
           const res = await result.text()
           if(result.status==200){
             alert("ok")
-            window.location.href=`/home.html?id=${(await result.json()).id}`
+            window.location.href=`/home.html?id=${await result.text()}`
             return
           }
           if(confirm("アカウントが存在しない可能性があります。\n新しく作りますか？")){
@@ -52,7 +52,7 @@
             })
             if(res_post.status==201){
                 alert("新規登録しました。")
-                window.location.href=`/home.html?id=${(await res_post.json()).id}`
+                window.location.href=`/home.html?id=${await res_post.text()}`
                 return
             }
             alert(await res_post.text())
