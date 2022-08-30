@@ -19,11 +19,9 @@
         <div id="life-bar"></div>
         <div id="life-mark"></div>
       </div>
-      <div class="enemy_name" id="enemy_name" >
-        <b>
+      <b class="enemy_name" id="enemy_name" >
           雑魚クーラン
-        </b>
-      </div>
+      </b>
       <div class="vs">
         <div class="enemy" style="text-align: center">
           <img id="image01" src="image/snowman1.png" width="70%" alt="sample">
@@ -73,10 +71,25 @@
 <script type="text/javascript" >
   var elem = 0
   const lifeBar = document.getElementById('life-bar')         
-  const lifeMark = document.getElementById('life-mark')       
-  let maxlife_enemy = 273*3
+  const lifeMark = document.getElementById('life-mark') 
+  const enemyList=[
+    {
+      name:"雑魚クーラン",
+      maxlife:273*3,
+      atk:273,
+      frequency:100,
+      imgs:[
+        ["image/snowman1.png","image/snowman4.png"],
+        ["image/snowman2.png","image/snowman5.png"],
+        ["image/snowman3.png","image/snowman6.png"]
+      ]
+    }
+  ]     
+  let enemy=enemyList[0]
+  let enemy_status = 0
+  let maxlife_enemy = enemy.maxlife
   let life_enemy = maxlife_enemy              
-  let atk_enemy = 273
+  let atk_enemy = enemy.atk
   let atk = 273
   let maxhp = 273*3
   let hp = maxhp
@@ -86,16 +99,24 @@
   document.getElementById("needle02").style.transform=`rotate(${Math.floor(180 * (hp / maxhp))}deg)`;
   document.getElementById("needle03").style.transform=`rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
   let obj = document.getElementById('text')
+  obj.innerText=`${enemy.name}が現れた！`
+  document.getElementById('enemy_name').innerText=`${enemy.name}`
   function countUpA(){
     document.getElementById("image01").innerHTML = ++elem;
     life_enemy-=atk;
     atkGauge-=dec_atkGauge;
     hp-=atk_enemy;
-    const lifePercentage_enemy=life_enemy/maxlife_enemy
     if(life_enemy<0) life_enemy=0
+    const lifePercentage_enemy=life_enemy/maxlife_enemy
+    if(lifePercentage_enemy<0.4)
+      enemy_status=2
+    else if(lifePercentage_enemy<0.7)
+      enemy_status=1
+    else
+      enemy_status=0
     switch (elem){
       case 0:
-        document.getElementById("image01").src="image/snowman1.png";
+        document.getElementById("image01").src=enemy.imgs[enemy_status][0];
         break;
       case 1:
       setTimeout(function(){
@@ -105,16 +126,16 @@
         document.getElementById("image03").style.filter="opacity(0.4) drop-shadow(0 0 0 blue)";
         }, 1)
         setTimeout(function(){
-          document.getElementById("image01").src="image/snowman4.png";
+          document.getElementById("image01").src=enemy.imgs[enemy_status][1];
           document.getElementById("needle03").style.transform=`rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
           document.getElementById("image03").style.filter="none";
         }, 250) 
         setTimeout(function(){
-          lifeBar.style.width = `${lifePercentage_enemy}`;
+          lifeBar.style.width = `${lifePercentage_enemy*100}%`;
         }, 500) 
         setTimeout(function(){
           document.getElementById('text').innerText = `${atk}kのダメージを与えた!`;
-          document.getElementById("image01").src="image/snowman2.png";
+          document.getElementById("image01").src=enemy.imgs[enemy_status][0];
         }, 1000) 
         setTimeout(function(){
           document.getElementById('text').innerText = "クーランが攻撃してきた!";
@@ -138,16 +159,16 @@
         document.getElementById("image03").style.filter="opacity(0.4) drop-shadow(0 0 0 blue)";
         }, 1)
         setTimeout(function(){
-          document.getElementById("image01").src="image/snowman5.png";
+          document.getElementById("image01").src=enemy.imgs[enemy_status][1];
           document.getElementById("needle03").style.transform=`rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
           document.getElementById("image03").style.filter="none";
         }, 250) 
         setTimeout(function(){
-          lifeBar.style.width = `${lifePercentage_enemy}`;  
+          lifeBar.style.width = `${lifePercentage_enemy*100}%`;  
         }, 500) 
         setTimeout(function(){
           document.getElementById('text').innerText = `${atk}kのダメージを与えた!`;
-          document.getElementById("image01").src="image/snowman3.png";
+          document.getElementById("image01").src=enemy.imgs[enemy_status][0];
         }, 1000) 
         setTimeout(function(){
           document.getElementById('text').innerText = "クーランが攻撃してきた!";
@@ -173,8 +194,8 @@
         setTimeout(function(){
           document.getElementById("needle03").style.transform=`rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
           document.getElementById("image03").style.filter="none";
-          document.getElementById("image01").src="image/snowman6.png";
-          lifeBar.style.width = `${lifePercentage_enemy}`;   
+          document.getElementById("image01").src=enemy.imgs[enemy_status][1];
+          lifeBar.style.width = `${lifePercentage_enemy*100}%`;   
           document.getElementById('text').innerText = "敵を討伐した！";
         }, 1000) 
         setTimeout(function(){
@@ -184,18 +205,25 @@
           document.getElementById('text').innerText = "おめでとう！君の勝利！";
         }, 2000) 
         setTimeout(function(){
+          elem=0
+          enemy=enemyList[0]
+          enemy_status = 0
+          maxlife_enemy = enemy.maxlife
+          life_enemy = maxlife_enemy              
+          atk_enemy = enemy.atk
+          atk = 273
+          maxhp = 273*3
+          hp = maxhp
+          atkGauge=70
           document.getElementById("enemy_name").style.visibility='visible';
           document.getElementById("image01").style.visibility='visible';
           document.getElementById("life-frame").style.visibility='visible';
-          document.getElementById('text').innerText = "新たな雑魚クーランが現れた！";
-          document.getElementById("image01").src="image/snowman1.png";
+          document.getElementById('enemy_name').innerText=`${enemy.name}`
+          document.getElementById('text').innerText = `新たな${enemy.name}が現れた！`;
+          document.getElementById("image01").src=enemy.imgs[enemy_status][0];
           document.getElementById("needle02").style.transform=`rotate(${Math.floor(180 * (hp / maxhp))}deg)`;
           document.getElementById("needle03").style.transform=`rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
           lifeBar.style.width = "100%";
-          elem=0;
-          life_enemy=maxlife_enemy;
-          atkGauge=70
-          hp=maxhp
           document.getElementById("button02").disabled = false;
           document.getElementById("button01").disabled = false;
         }, 6000) 
