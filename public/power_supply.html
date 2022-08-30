@@ -35,8 +35,9 @@
     { temp:-273, get:1, prompt:"寒そう！体を温めよう！" }
   ]
   const getTbl = async()=>{
-    const temp = await 27//getTemp
+    const temp = await (await fetch(`/temp?latitude=${40}&longitude=${140}}`)).text()//getTemp
     const tbl = location.pathname=="/power_supply.html"?tbl_power:tbl_hp
+    console.log(temp)
     for(const i of tbl){
       if(i.temp<temp)
         return i
