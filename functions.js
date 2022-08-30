@@ -7,7 +7,7 @@ export const easilyAccessToAPI={
 			latitude = data.latitude;
 			longitude = data.longitude;
     })
-    return await fetch(`/temp?latitude=${latitude}&longitude=${longitude}`)
+    return parseFloat(await fetch(`/temp?latitude=${latitude}&longitude=${longitude}`))
   },
   async playerData(){
       return (await(await fetch("/player"+location.search)).json())[0]
