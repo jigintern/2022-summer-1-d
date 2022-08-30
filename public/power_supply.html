@@ -63,7 +63,7 @@
     const tbl = location.pathname=="/power_supply.html"?tbl_power:tbl_hp
     console.log(temp)
     for(const i of tbl){
-      if(i.temp<temp)
+      if(i.temp < temp)
         return i
     }
   }
