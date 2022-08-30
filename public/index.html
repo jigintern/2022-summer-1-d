@@ -38,10 +38,10 @@
           if (this.submitDisableFlag())
             return
           const result = await fetch(`/login?loginId=${this.id}&password=${this.password}`)
-          const res = await result.text()
           if(result.status==200){
             alert("ok")
-            window.location.href=`/home.html?id=${await result.text()}`
+            const res = await result.text()
+            window.location.href=`/home.html?id=${res}`
             return
           }
           if(confirm("アカウントが存在しない可能性があります。\n新しく作りますか？")){
@@ -52,7 +52,8 @@
             })
             if(res_post.status==201){
                 alert("新規登録しました。")
-                window.location.href=`/home.html?id=${await res_post.text()}`
+                const res = await res_post.text()
+                window.location.href=`/home.html?id=${res}`
                 return
             }
             alert(await res_post.text())
