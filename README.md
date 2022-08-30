@@ -11,7 +11,12 @@ https://jigintern-2022-summer-1-d.deno.dev/
 - ひより
 - やまじ(メンター)
 
-## H2Use
+## H2Use dotenv
 
 1. copy `.env.example` to `.env` and fix that.
 2. run `deno run --allow-net --allow-read --allow-env server.js`
+
+## H2Use commit temnplate
+
+1. run `git config commit.template .commit_template`
+2. `git commit` to commit with template
