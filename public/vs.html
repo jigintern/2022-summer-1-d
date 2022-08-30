@@ -54,11 +54,14 @@
   var elem = 0
   const lifeBar = document.getElementById('life-bar')         
   const lifeMark = document.getElementById('life-mark')       
-  let life = 100                                              
+  let life_enemy = 100              
+  let atk_enemy = 33.4
   lifeBar.style.width = "100%"    
   let obj = document.getElementById('text')
   function countUpA(){
     document.getElementById("image01").innerHTML = ++elem;
+    life_enemy-=atk_enemy;
+    if(life_enemy<0) life_enemy=0
     switch (elem){
       case 0:
         document.getElementById("image01").src="image/snowman1.png";
@@ -75,7 +78,7 @@
           document.getElementById("image03").src="image/gauge/pwgauge50.png";
         }, 250) 
         setTimeout(function(){
-          lifeBar.style.width = "66%";
+          lifeBar.style.width = `${life_enemy}%`;
         }, 500) 
         setTimeout(function(){
           document.getElementById('text').innerText = "273kのダメージを与えた!";
@@ -106,7 +109,7 @@
           document.getElementById("image03").src="image/gauge/pwgauge30.png";
         }, 250) 
         setTimeout(function(){
-          lifeBar.style.width = "33%";  
+          lifeBar.style.width = `${life_enemy}%`;  
         }, 500) 
         setTimeout(function(){
           document.getElementById('text').innerText = "273kのダメージを与えた!";
@@ -135,7 +138,7 @@
         setTimeout(function(){
           document.getElementById("image03").src="image/gauge/pwgauge10.png";
           document.getElementById("image01").src="image/snowman6.png";
-          lifeBar.style.width = "0%";   
+          lifeBar.style.width = `${life_enemy}%`;   
           document.getElementById('text').innerText = "敵を討伐した！";
         }, 1000) 
         setTimeout(function(){
@@ -154,6 +157,7 @@
           document.getElementById("image02").src="image/gauge/hpgauge100.png";
           lifeBar.style.width = "100%";
           elem=0;
+          life_enemy=100;
           document.getElementById("button02").disabled = false;
           document.getElementById("button01").disabled = false;
         }, 6000) 
