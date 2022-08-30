@@ -20,7 +20,7 @@ export const easilyAccessToAPI={
       } finally {
         /*const testTxt = document.querySelector("#location");
         testTxt.innerHTML = `経度：${lat}<br>緯度：${lon}<br>`;*/
-        return {lat,lon};
+        return {lat, lon};
       }
     }
     const currentLocation = await getLocation()
