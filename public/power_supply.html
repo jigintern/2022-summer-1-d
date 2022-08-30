@@ -34,8 +34,8 @@
     { temp:23,  get:5,  prompt:"気温は最適！体を動かそう！" },
     { temp:-273, get:1, prompt:"寒そう！体を温めよう！" }
   ]
-  const getTbl = function(){
-    const temp = 27//getTemp
+  const getTbl = async()=>{
+    const temp = await 27//getTemp
     const tbl = location.pathname=="/power_supply.html"?tbl_power:tbl_hp
     for(const i of tbl){
       if(i.temp<temp)
@@ -46,8 +46,8 @@
     return {
       percentage: 0,
       infomation: getTbl(),
-      increment() {
-        this.percentage += this.infomation.get;
+      async increment() {
+        this.percentage += (await this.infomation).get;
         if(this.percentage>100) this.percentage=100
       },
       rotateStyle() {
