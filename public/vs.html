@@ -56,12 +56,12 @@
   const lifeMark = document.getElementById('life-mark')       
   let maxlife_enemy = 100
   let life_enemy = maxlife_enemy              
-  let atk_enemy = 33.4
+  let atk = 33.4
   lifeBar.style.width = "100%"    
   let obj = document.getElementById('text')
   function countUpA(){
     document.getElementById("image01").innerHTML = ++elem;
-    life_enemy-=atk_enemy;
+    life_enemy-=atk;
     if(life_enemy<0) life_enemy=0
     switch (elem){
       case 0:
