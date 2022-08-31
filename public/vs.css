@@ -84,3 +84,27 @@ html,body{
     font-size: 20px;
     color: black;
 }
+
+.meters-wrapper{
+  display: flex;
+}
+
+.meter-panel{
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+
+.meter{
+  margin: 5px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+img.needle{
+  position: absolute;
+  bottom: 0;
+  transform-origin: 92%;
+  transform: translate(-42%, 0%);
+}
