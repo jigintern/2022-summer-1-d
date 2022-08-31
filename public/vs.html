@@ -106,6 +106,7 @@
       uis.lifeFrame.style.visibility='visible';
       uis.enemyName.innerText=`${enemy.name}`
       uis.dialog.innerText = `${flag?"":"新たな"}${enemy.name}が現れた！`;
+      if(flag)flag=false
       uis.enemy.src=enemy.imgs[enemy_status][0];
       uis.hpMeter.style.transform=`rotate(${Math.floor(180 * (hp / maxhp))}deg)`;
       uis.atkMeter.style.transform=`rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
@@ -121,12 +122,6 @@
     hp-=atk_enemy;
     if(life_enemy<0) life_enemy=0
     const lifePercentage_enemy=life_enemy/maxlife_enemy
-    if(lifePercentage_enemy<0.4)
-      enemy_status=2
-    else if(lifePercentage_enemy<0.7)
-      enemy_status=1
-    else
-      enemy_status=0
     setTimeout(function(){
       uis.dialog.innerText = "攻撃をした!";
       uis.atkBtn.disabled = true;
@@ -157,6 +152,12 @@
       }, 250) 
       setTimeout(function(){
         uis.lifeBar.style.width = `${lifePercentage_enemy*100}%`;
+        if(lifePercentage_enemy<0.4)
+          enemy_status=2
+        else if(lifePercentage_enemy<0.7)
+          enemy_status=1
+        else
+          enemy_status=0
       }, 500) 
       setTimeout(function(){
         uis.dialog.innerText = `${atk}kのダメージを与えた!`;
