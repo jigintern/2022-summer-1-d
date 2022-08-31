@@ -86,23 +86,34 @@
       ]
     }
   ]     
-  let enemy=enemyList[0]
-  let enemy_status = 0
-  let maxlife_enemy = enemy.maxlife
-  let life_enemy = maxlife_enemy              
-  let atk_enemy = enemy.atk
-  let atk = 273
-  let maxhp = 273*3
-  let hp = maxhp
-  let atkGauge=70
+  let enemy, enemy_status, maxlife_enemy, life_enemy, atk_enemy;
+  let atk = 273, maxhp = 273*3, hp = maxhp, atkGauge=70;
+  let flag=true;
   const dec_atkGauge=20
 
-  uis.lifeBar.style.width = "100%"    
-  uis.hpMeter.style.transform=`rotate(${Math.floor(180 * (hp / maxhp))}deg)`;
-  uis.atkMeter.style.transform=`rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
-  uis.dialog.innerText=`${enemy.name}が現れた！`
-  uis.enemyName.innerText=`${enemy.name}`
-  uis.enemy.src=enemy.imgs[enemy_status][0];
+  function spawn(){
+    enemy=enemyList[0]
+      enemy_status = 0
+      maxlife_enemy = enemy.maxlife
+      life_enemy = maxlife_enemy              
+      atk_enemy = enemy.atk
+      atk = 273
+      maxhp = 273*3
+      hp = maxhp
+      atkGauge=70
+      uis.enemyName.style.visibility='visible';
+      uis.enemy.style.visibility='visible';
+      uis.lifeFrame.style.visibility='visible';
+      uis.enemyName.innerText=`${enemy.name}`
+      uis.dialog.innerText = `${flag?"":"新たな"}${enemy.name}が現れた！`;
+      uis.enemy.src=enemy.imgs[enemy_status][0];
+      uis.hpMeter.style.transform=`rotate(${Math.floor(180 * (hp / maxhp))}deg)`;
+      uis.atkMeter.style.transform=`rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
+      uis.lifeBar.style.width = "100%";
+      uis.atkBtn.disabled = false;
+      uis.runBtn.disabled = false;
+  }
+  spawn()
 
   function attack(){
     life_enemy-=atk;
@@ -175,29 +186,6 @@
     uis.lifeFrame.style.visibility = 'hidden';
     uis.enemy.style.visibility = 'hidden';
     setTimeout(respawn, 3000) 
-  }
-
-  function respawn(){
-    enemy=enemyList[0]
-      enemy_status = 0
-      maxlife_enemy = enemy.maxlife
-      life_enemy = maxlife_enemy              
-      atk_enemy = enemy.atk
-      atk = 273
-      maxhp = 273*3
-      hp = maxhp
-      atkGauge=70
-      uis.enemyName.style.visibility='visible';
-      uis.enemy.style.visibility='visible';
-      uis.lifeFrame.style.visibility='visible';
-      uis.enemyName.innerText=`${enemy.name}`
-      uis.dialog.innerText = `新たな${enemy.name}が現れた！`;
-      uis.enemy.src=enemy.imgs[enemy_status][0];
-      uis.hpMeter.style.transform=`rotate(${Math.floor(180 * (hp / maxhp))}deg)`;
-      uis.atkMeter.style.transform=`rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
-      uis.lifeBar.style.width = "100%";
-      uis.atkBtn.disabled = false;
-      uis.runBtn.disabled = false;
   }
 </script>
 </html>
