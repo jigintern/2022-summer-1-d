@@ -76,31 +76,64 @@
   const enemyList=[
     {
       name:"雑魚クーラン",
-      maxlife:273*3,
-      atk:273,
-      frequency:100,
+      maxlife:922,
+      atk:20,
+      frequency:70,
       imgs:[
-        ["image/snowman1.png","image/snowman4.png"],
-        ["image/snowman2.png","image/snowman5.png"],
-        ["image/snowman3.png","image/snowman6.png"]
+        ["image/enemy/zako/snowman1.png", "image/enemy/zako/snowman4.png"],
+        ["image/enemy/zako/snowman2.png", "image/enemy/zako/snowman5.png"],
+        ["image/enemy/zako/snowman3.png", "image/enemy/zako/snowman6.png"]
+      ]
+    },
+    {
+      name:"エアクーラン",
+      maxlife:1365,
+      atk:40,
+      frequency:20,
+      imgs:[
+        ["image/enemy/air/air_coolern1.png", "image/enemy/air/air_coolern2.png"],
+        ["image/enemy/air/air_coolern3.png", "image/enemy/air/air_coolern4.png"],
+        ["image/enemy/air/air_coolern5.png", "image/enemy/air/air_coolern6.png"]
+      ]
+    },
+    {
+      name:"ボスクーラン",
+      maxlife:2730,
+      atk:100,
+      frequency:10,
+      imgs:[
+        ["image/enemy/boss/boss_coolern1.png", "image/enemy/boss/boss_coolern2.png"],
+        ["image/enemy/boss/boss_coolern3.png", "image/enemy/boss/boss_coolern4.png"],
+        ["image/enemy/boss/boss_coolern5.png", "image/enemy/boss/boss_coolern6.png"]
+      ]
+    },
+    {
+      name:"レアクーラン",
+      maxlife:546,
+      atk:10,
+      frequency:0,
+      imgs:[
+        ["image/enemy/zako/snowman1.png", "image/enemy/zako/snowman4.png"],
+        ["image/enemy/zako/snowman2.png", "image/enemy/zako/snowman5.png"],
+        ["image/enemy/zako/snowman3.png", "image/enemy/zako/snowman6.png"]
       ]
     },
     {
       name:"ダミークーラン",
-      maxlife:273*10,
+      maxlife:2500,
       atk:12,
-      frequency:100,
+      frequency:0,
       imgs:[
-        ["image/snowman1.png","image/snowman4.png"],
-        ["image/snowman2.png","image/snowman5.png"],
-        ["image/snowman3.png","image/snowman6.png"]
+        ["image/enemy/zako/snowman1.png", "image/enemy/zako/snowman4.png"],
+        ["image/enemy/zako/snowman2.png", "image/enemy/zako/snowman5.png"],
+        ["image/enemy/zako/snowman3.png", "image/enemy/zako/snowman6.png"]
       ]
     }
   ]     
   const sum_freq = enemyList.reduce((sum, element) => sum + element.frequency, 0);
-  const dec_atkGauge=20
+  const dec_atkGauge=5
   let enemy, enemy_status, maxlife_enemy, life_enemy, atk_enemy;
-  let atk = 273, maxhp = 273*3, hp = maxhp, atkGauge=70;
+  let atk = 273, maxhp = 1000, hp = maxhp, atkGauge=70;
   let flag=true;
 
   function spawn(){
@@ -171,7 +204,7 @@
       }, 250) 
       setTimeout(function(){
         uis.lifeBar.style.width = `${lifePercentage_enemy*100}%`;
-        if(lifePercentage_enemy<0.4)
+        if(lifePercentage_enemy<0.2)
           enemy_status=2
         else if(lifePercentage_enemy<0.7)
           enemy_status=1
