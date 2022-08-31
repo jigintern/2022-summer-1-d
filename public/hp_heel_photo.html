@@ -14,7 +14,8 @@
   <div class="background">
     <form id="form" action="">
       <div class="photo">
-        <input type="file" name="test" accept="image/png, image/jpeg" required>
+        <input type="file" name="test" id="example" accept="image/png, image/jpeg" required>
+        <div id="preview"></div>
       </div>
     </form>
     <img src="/image/gauge.png"  class="ATKmeter" width="200px" height="90px" style="display: block;">
@@ -24,12 +25,54 @@
           <div class="power">
             <img src="/image/needle2.png" class="needle" width="90px" style="transform: scale(-1, 1);"  x-bind:style="rotateStyle()">
           </div>
-          <div class="button"><input type="button" id="photo" form="form" name="submit" x-on:click="increment" value="写真投稿" style="display: block; margin:auto"></div>
+          <div class="button"><input type="button" id="photo" form="form" name="submit" x-on:click="increment()" value="写真投稿" style="display: block; margin:auto"></div>
         </div>
       </div>
     </div>
   </div>
 </body>  
 <script>
+  function meterCtrl() {
+    return {
+      percentage: 0,
+      async increment() {
+        this.percentage += 10;
+        if(this.percentage > 100) this.percentage = 100
+      },
+      rotateStyle() {
+         return `transform: rotate(${Math.floor(180 * (this.percentage / 100))}deg);`;
+      },
+    }
+  }
+
+  //https://code-kitchen.dev/html/input-file/?adlt=strict&toWww=1&redig=02D44BF287E641CEA2CFC286F0C39237
+  function previewFile(file) {
+  // プレビュー画像を追加する要素
+  const preview = document.getElementById('preview');
+
+  // FileReaderオブジェクトを作成
+  const reader = new FileReader();
+
+  // URLとして読み込まれたときに実行する処理
+  reader.onload = function (e) {
+    const imageUrl = e.target.result; // URLはevent.target.resultで呼び出せる
+    const img = document.createElement("img"); // img要素を作成
+    img.src = imageUrl; // URLをimg要素にセット
+    preview.appendChild(img); // #previewの中に追加
+  }
+
+  // いざファイルをURLとして読み込む
+  reader.readAsDataURL(file);
+  }
+
+  // <input>でファイルが選択されたときの処理
+  const fileInput = document.getElementById('example');
+  const handleFileSelect = () => {
+  const files = fileInput.files;
+  for (let i = 0; i < files.length; i++) {
+    previewFile(files[i]);
+  }
+  }
+  fileInput.addEventListener('change', handleFileSelect);
 </script>
 </html>
