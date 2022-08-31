@@ -192,15 +192,24 @@
     document.getElementById("life-frame").style.visibility = 'hidden';
     document.getElementById("image01").style.visibility = 'hidden';
     setTimeout(function(){
-      lifeBar.style.width = "100%"    
-      elem=0;
+      enemy=enemyList[0]
+      enemy_status = 0
+      maxlife_enemy = enemy.maxlife
+      life_enemy = maxlife_enemy              
+      atk_enemy = enemy.atk
+      atk = 273
+      maxhp = 273*3
+      hp = maxhp
+      atkGauge=70
       document.getElementById("enemy_name").style.visibility='visible';
       document.getElementById("image01").style.visibility='visible';
       document.getElementById("life-frame").style.visibility='visible';
-      document.getElementById('text').innerText = "新たな雑魚クーランが現れた！";
-      document.getElementById("image01").src="image/snowman1.png";
-      document.getElementById("image03").src="image/gauge/pwgauge70.png";
-      document.getElementById("image02").src="image/gauge/hpgauge100.png";
+      document.getElementById('enemy_name').innerText=`${enemy.name}`
+      document.getElementById('text').innerText = `新たな${enemy.name}が現れた！`;
+      document.getElementById("image01").src=enemy.imgs[enemy_status][0];
+      document.getElementById("needle02").style.transform=`rotate(${Math.floor(180 * (hp / maxhp))}deg)`;
+      document.getElementById("needle03").style.transform=`rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
+      lifeBar.style.width = "100%";
       document.getElementById("button02").disabled = false;
       document.getElementById("button01").disabled = false;
     }, 3000) 
