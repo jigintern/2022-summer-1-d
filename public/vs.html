@@ -53,10 +53,10 @@
       </div>
       <div class="position" >
         <div class="button1">
-          <input type="image" id="button01" src="image/atk_button.png" onclick="countUpA()" width="100%" height="100%" alt="HPmeter">
+          <input type="image" id="button01" src="image/atk_button.png" onclick="attack()" width="100%" height="100%" alt="HPmeter">
         </div>
         <div class="button2" >
-            <input type="image" id="button02" src="image/run_button.png"  onclick="countreset()" width="100%" height="100%" alt="POWERmeter">
+            <input type="image" id="button02" src="image/run_button.png"  onclick="escape()" width="100%" height="100%" alt="POWERmeter">
         </div>
       </div>
       <div id="text" class="box">
@@ -101,7 +101,7 @@
   obj.innerText=`${enemy.name}が現れた！`
   document.getElementById('enemy_name').innerText=`${enemy.name}`
   document.getElementById("image01").src=enemy.imgs[enemy_status][0];
-  function countUpA(){
+  function attack(){
     life_enemy-=atk;
     atkGauge-=dec_atkGauge;
     hp-=atk_enemy;
@@ -184,7 +184,7 @@
       }, 3000)
     } 
   }
-  function countreset(){
+  function escape(){
     document.getElementById("button01").disabled = true;
     document.getElementById("button02").disabled = true;
     document.getElementById('text').innerText = "逃げ出した！";
@@ -214,6 +214,9 @@
       document.getElementById("button01").disabled = false;
     }, 3000) 
     
+    
+  }
+  function countreset(){
     
   }
 </script>
