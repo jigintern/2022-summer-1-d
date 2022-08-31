@@ -30,14 +30,14 @@
           <div class="meters-wrapper">
             <div class="meter-panel">
               <div class="meter">
-                <img id="image02" src="image/gauge.png" width="40%" alt="sample">
-                <img id="needle02" src="image/needle2.png" class="needle" width="20%%">
+                <img id="image02" src="image/gauge.png" width="80%" alt="sample">
+                <img id="needle02" src="image/needle2.png" class="needle" width="40%">
               </div>
             </div>
             <div class="meter-panel">
               <div class="meter">
-                <img id="image03" src="image/gauge1.png" width="40%" alt="sample">
-                <img id="needle03" src="image/needle2.png" class="needle" width="20%">
+                <img id="image03" src="image/gauge1.png" width="80%" alt="sample">
+                <img id="needle03" src="image/needle2.png" class="needle" width="40%">
               </div>
             </div>
           </div>
@@ -108,8 +108,8 @@
       uis.dialog.innerText = `${flag?"":"新たな"}${enemy.name}が現れた！`;
       if(flag)flag=false
       uis.enemy.src=enemy.imgs[enemy_status][0];
-      uis.hpMeter.style.transform=`rotate(${Math.floor(180 * (hp / maxhp))}deg)`;
-      uis.atkMeter.style.transform=`rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
+      uis.hpMeter.style.transform=`translate(-42%, 0%) rotate(${Math.floor(180 * (hp / maxhp))}deg)`;
+      uis.atkMeter.style.transform=`translate(-42%, 0%) rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
       uis.lifeBar.style.width = "100%";
       uis.atkBtn.disabled = false;
       uis.runBtn.disabled = false;
@@ -130,7 +130,7 @@
     }, 1)
     if(lifePercentage_enemy==0){
       setTimeout(function(){
-        uis.atkMeter.style.transform=`rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
+        uis.atkMeter.style.transform=`translate(-42%, 0%) rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
         uis.atkGuage.style.filter="none";
         uis.enemy.src=enemy.imgs[enemy_status][1];
         uis.lifeBar.style.width = `${lifePercentage_enemy*100}%`;   
@@ -147,7 +147,7 @@
     else{
       setTimeout(function(){
         uis.enemy.src=enemy.imgs[enemy_status][1];
-        uis.atkMeter.style.transform=`rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
+        uis.atkMeter.style.transform=`translate(-42%, 0%) rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
         uis.atkGuage.style.filter="none";
       }, 250) 
       setTimeout(function(){
@@ -170,7 +170,7 @@
         uis.hpGuage.style.filter="opacity(0.4) drop-shadow(0 0 0 red)";
       }, 2250) 
       setTimeout(function(){
-        uis.hpMeter.style.transform=`rotate(${Math.floor(180 * (hp / maxhp))}deg)`;
+        uis.hpMeter.style.transform=`translate(-42%, 0%) rotate(${Math.floor(180 * (hp / maxhp))}deg)`;
         uis.hpGuage.style.filter="none";
         uis.dialog.innerText = `${atk_enemy}Kのダメージを受けた!`;
         uis.atkBtn.disabled = false;

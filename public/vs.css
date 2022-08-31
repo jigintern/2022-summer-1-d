@@ -85,11 +85,11 @@ html,body{
     color: black;
 }
 
-.meters_wrapper{
+.meters-wrapper{
   display: flex;
 }
 
-.meter_panel{
+.meter-panel{
   display: flex;
   flex-direction: column;
   align-content: center;
@@ -99,10 +99,12 @@ html,body{
   margin: 5px;
   position: relative;
   display: flex;
+  justify-content: center;
 }
 
 img.needle{
   position: absolute;
   bottom: 0;
   transform-origin: 92%;
+  transform: translate(-42%, 0%);
 }
