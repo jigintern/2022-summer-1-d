@@ -37,6 +37,14 @@ try {
       password TEXT NOT NULL
     )
   `;
+  // Create the table
+  await connection.queryObject`
+    CREATE TABLE IF NOT EXISTS imgs (
+      imgid SERIAL PRIMARY KEY,
+      id TEXT NOT NULL,
+      img TEXT NOT NULL
+    )
+  `;
 } finally {
   // Release the connection back into the pool
   connection.release();
@@ -248,6 +256,36 @@ serve(async (req) => {
         `).rows[0];
         // Return a 201 Created response
         return new Response(result.id, { status: 201 });
+      }
+      default: // If this is neither a POST, or a GET return a 405 response.
+      return new Response("Method Not Allowed", { status: 405 });
+    }
+  }
+
+  if(pathname == "/img") {
+    switch(req.method){
+      case "GET":{
+        //テスト実行：Invoke-WebRequest http://localhost:8000/img
+        // This is a GET request. Return a list of all todos.
+        // Run the query
+        const result = ((await connection.queryObject`
+          SELECT * FROM imgs
+        `)??[{imgid:0}]).rows;//TABLEのusers.passwordはnull非許容
+        return result;
+      }
+      case "POST":{
+        //テスト実行：Invoke-WebRequest http://localhost:8000/img?id=4 -Method ‘POST’ -Body ‘{"imgid":"test","img":"testesttestestes"}’
+        const fill = await req.json().catch(()=>null);
+        console.log(fill)
+        try{
+          await connection.queryObject`
+            INSERT INTO imgs(imgid, id, img) VALUES (${fill.imgid}, ${fill.id}, ${fill.img})
+          `;
+        } catch {
+          return new Response("なんかエラー",{status:400})
+        }
+        // Return a 201 Created response
+        return new Response("ok", { status: 201 });
       }
       default: // If this is neither a POST, or a GET return a 405 response.
       return new Response("Method Not Allowed", { status: 405 });
