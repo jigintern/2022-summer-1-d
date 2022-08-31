@@ -1,0 +1,34 @@
+.background {
+  height: 100%;
+  width: 100%;
+  background-color: var(--color-background);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.vs {
+  width: min(160px, 40%);
+  display: flex;
+}
+
+.heals {
+  width: min(384px, 100%);
+  margin-top: 16px;
+  display: flex;
+}
+
+.hp-heal {
+  margin-bottom: 32px;
+  padding: 16px;
+}
+
+.atack-heal {
+  margin-top: 32px;
+  padding: 16px;
+}
+
+img {
+  filter: drop-shadow(0 0 3px var(--color-shadow));
+}
