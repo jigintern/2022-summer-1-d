@@ -1,0 +1,47 @@
+*{
+  box-sizing: border-box;
+}
+html,body{
+  height: 100%;
+  width: 100%;
+  background-color:#faffffff ;
+}
+.background{
+  width: 100%;
+  height: 600Px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+img.needle {
+  transform: translate(35%,-170%);
+  position: absolute;
+  left: -127%;
+  transform-origin: 87px 10px;
+  bottom: 0;
+  transform-origin: right;
+}
+.photo{
+  width: 250px;
+  height: 250px;
+  border:4px solid #003c51;
+}
+.meters-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.meter-panal {
+  display: flex;
+  flex-direction: column;
+ }
+
+.meter {
+  margin: 5px;
+  position: relative;
+}
+.button{
+  display: flex;
+}
