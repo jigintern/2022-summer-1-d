@@ -106,7 +106,7 @@
   let hp = maxhp
   let atkGauge=70
   const dec_atkGauge=20
-  lifeBar.style.width = "100%"    
+  uis.lifeBar.style.width = "100%"    
   uis.hpMeter.style.transform=`rotate(${Math.floor(180 * (hp / maxhp))}deg)`;
   uis.atkMeter.style.transform=`rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
   uis.dialog.innerText=`${enemy.name}が現れた！`
@@ -135,7 +135,7 @@
         uis.atkMeter.style.transform=`rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
         uis.atkGuage.style.filter="none";
         uis.enemy.src=enemy.imgs[enemy_status][1];
-        lifeBar.style.width = `${lifePercentage_enemy*100}%`;   
+        uis.lifeBar.style.width = `${lifePercentage_enemy*100}%`;   
         uis.dialog.innerText = "敵を討伐した！";
       }, 1000) 
       setTimeout(function(){
@@ -153,7 +153,7 @@
         uis.atkGuage.style.filter="none";
       }, 250) 
       setTimeout(function(){
-        lifeBar.style.width = `${lifePercentage_enemy*100}%`;
+        uis.lifeBar.style.width = `${lifePercentage_enemy*100}%`;
       }, 500) 
       setTimeout(function(){
         uis.dialog.innerText = `${atk}kのダメージを与えた!`;
@@ -196,12 +196,12 @@
       uis.enemyName.style.visibility='visible';
       uis.enemy.style.visibility='visible';
       uis.lifeFrame.style.visibility='visible';
-      uis.lifeFrame.innerText=`${enemy.name}`
+      uis.enemyName.innerText=`${enemy.name}`
       uis.dialog.innerText = `新たな${enemy.name}が現れた！`;
       uis.enemy.src=enemy.imgs[enemy_status][0];
       uis.hpMeter.style.transform=`rotate(${Math.floor(180 * (hp / maxhp))}deg)`;
       uis.atkMeter.style.transform=`rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
-      lifeBar.style.width = "100%";
+      uis.lifeBar.style.width = "100%";
       uis.atkBtn.disabled = false;
       uis.runBtn.disabled = false;
   }
