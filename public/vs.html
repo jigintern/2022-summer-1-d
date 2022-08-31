@@ -84,15 +84,34 @@
         ["image/snowman2.png","image/snowman5.png"],
         ["image/snowman3.png","image/snowman6.png"]
       ]
+    },
+    {
+      name:"ダミークーラン",
+      maxlife:273*10,
+      atk:12,
+      frequency:100,
+      imgs:[
+        ["image/snowman1.png","image/snowman4.png"],
+        ["image/snowman2.png","image/snowman5.png"],
+        ["image/snowman3.png","image/snowman6.png"]
+      ]
     }
   ]     
+  const sum_freq = enemyList.reduce((sum, element) => sum + element.frequency, 0);
+  const dec_atkGauge=20
   let enemy, enemy_status, maxlife_enemy, life_enemy, atk_enemy;
   let atk = 273, maxhp = 273*3, hp = maxhp, atkGauge=70;
   let flag=true;
-  const dec_atkGauge=20
 
   function spawn(){
-    enemy=enemyList[0]
+    let i = 0, j = sum_freq*Math.random();
+    while(i<enemyList.length){
+      j -= enemyList[i].frequency
+      if(j<0) break;
+      i++
+    }
+    console.log(`sum_freq: ${sum_freq}\ni: ${i}\nj: ${j}`)
+    enemy=enemyList[i]
       enemy_status = 0
       maxlife_enemy = enemy.maxlife
       life_enemy = maxlife_enemy              
