@@ -27,30 +27,20 @@
           <img id="image01" src="image/snowman1.png" width="70%" alt="sample">
         </div>
       </div>
-      <div class="position">
-          <img id="image02" src="image/gauge.png" width="40%" alt="sample">
-          <img id="image03" src="image/gauge1.png" width="40%" alt="sample">
-
           <div class="meters-wrapper">
             <div class="meter-panel">
               <div class="meter">
-                <div class="power">
-                  <img id="needle02" src="image/needle2.png" class="needle" width="90px" style="transform: scale(-1, 1);">
-                </div>
+                <img id="image02" src="image/gauge.png" width="40%" alt="sample">
+                <img id="needle02" src="image/needle2.png" class="needle" width="20%%" style="transform: scale(-1, 1);">
               </div>
             </div>
-          </div>
-
-          <div class="meters-wrapper">
             <div class="meter-panel">
               <div class="meter">
-                <div class="power">
-                  <img id="needle03" src="image/needle2.png" class="needle" width="90px" style="transform: scale(-1, 1);">
-                </div>
+                <img id="image03" src="image/gauge1.png" width="40%" alt="sample">
+                <img id="needle03" src="image/needle2.png" class="needle" width="20%" style="transform: scale(-1, 1);">
               </div>
             </div>
           </div>
-      </div>
       <div class="position" >
         <div class="button1">
           <input type="image" id="button01" src="image/atk_button.png" onclick="attack()" width="100%" height="100%" alt="HPmeter">
@@ -186,7 +176,7 @@
     uis.enemy.style.visibility = 'hidden';
     setTimeout(respawn, 3000) 
   }
-  
+
   function respawn(){
     enemy=enemyList[0]
       enemy_status = 0
