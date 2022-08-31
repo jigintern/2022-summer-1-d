@@ -173,7 +173,7 @@
   function attack(){
     //前処理
     life_enemy-=atk;
-    atkGauge-=atkGuage<80?dec_atkGauge:0;
+    atkGauge-=atkGauge<80?dec_atkGauge:0;
     hp-=atk_enemy;
     if(hp<0) hp=0
     if(atkGauge<0) atkGauge=0
