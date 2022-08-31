@@ -24,3 +24,12 @@ const getTbl = function(){
       return i
   }
 }
+
+//rondom enemySelector
+const enemyList=[]
+const sum_freq = enemyList.reduce((sum, element) => sum + element.frequency, 0);
+let j = sum_freq;
+for(let i=0;i<enemyList.length;i++){
+  j -= enemyList[i].frequency
+  if(j<0) break;
+}
