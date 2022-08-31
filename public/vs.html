@@ -137,43 +137,47 @@
   let flag=true;
 
   function spawn(){
+    //クーランガチャ
     let i = 0, j = sum_freq*Math.random();
     while(i<enemyList.length){
       j -= enemyList[i].frequency
       if(j<0) break;
       i++
     }
-    console.log(`sum_freq: ${sum_freq}\ni: ${i}\nj: ${j}`)
+    //初期値の設定
     enemy=enemyList[i]
-      enemy_status = 0
-      maxlife_enemy = enemy.maxlife
-      life_enemy = maxlife_enemy              
-      atk_enemy = enemy.atk
-      atk = 273
-      maxhp = 273*3
-      hp = maxhp
-      atkGauge=70
-      uis.enemyName.style.visibility='visible';
-      uis.enemy.style.visibility='visible';
-      uis.lifeFrame.style.visibility='visible';
-      uis.enemyName.innerText=`${enemy.name}`
-      uis.dialog.innerText = `${flag?"":"新たな"}${enemy.name}が現れた！`;
-      if(flag)flag=false
-      uis.enemy.src=enemy.imgs[enemy_status][0];
-      uis.hpMeter.style.transform=`translate(-42%, 0%) rotate(${Math.floor(180 * (hp / maxhp))}deg)`;
-      uis.atkMeter.style.transform=`translate(-42%, 0%) rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
-      uis.lifeBar.style.width = "100%";
-      uis.atkBtn.disabled = false;
-      uis.runBtn.disabled = false;
+    enemy_status = 0
+    maxlife_enemy = enemy.maxlife
+    life_enemy = maxlife_enemy              
+    atk_enemy = enemy.atk
+    atk = 273
+    maxhp = 273*3
+    hp = maxhp
+    atkGauge=70
+    //レンダリング
+    uis.enemyName.style.visibility='visible';
+    uis.enemy.style.visibility='visible';
+    uis.lifeFrame.style.visibility='visible';
+    uis.enemyName.innerText=`${enemy.name}`
+    uis.dialog.innerText = `${flag?"":"新たな"}${enemy.name}が現れた！`;
+    if(flag)flag=false
+    uis.enemy.src=enemy.imgs[enemy_status][0];
+    uis.hpMeter.style.transform=`translate(-42%, 0%) rotate(${Math.floor(180 * (hp / maxhp))}deg)`;
+    uis.atkMeter.style.transform=`translate(-42%, 0%) rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
+    uis.lifeBar.style.width = "100%";
+    uis.atkBtn.disabled = false;
+    uis.runBtn.disabled = false;
   }
   spawn()
 
   function attack(){
+    //前処理
     life_enemy-=atk;
     atkGauge-=dec_atkGauge;
     hp-=atk_enemy;
     if(life_enemy<0) life_enemy=0
     const lifePercentage_enemy=life_enemy/maxlife_enemy
+    //アニメーション
     setTimeout(function(){
       uis.dialog.innerText = "攻撃をした!";
       uis.atkBtn.disabled = true;
