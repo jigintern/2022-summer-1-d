@@ -106,12 +106,14 @@
   let hp = maxhp
   let atkGauge=70
   const dec_atkGauge=20
+
   uis.lifeBar.style.width = "100%"    
   uis.hpMeter.style.transform=`rotate(${Math.floor(180 * (hp / maxhp))}deg)`;
   uis.atkMeter.style.transform=`rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
   uis.dialog.innerText=`${enemy.name}が現れた！`
   uis.enemyName.innerText=`${enemy.name}`
   uis.enemy.src=enemy.imgs[enemy_status][0];
+
   function attack(){
     life_enemy-=atk;
     atkGauge-=dec_atkGauge;
@@ -174,6 +176,7 @@
       }, 3000)
     } 
   }
+
   function escape(){
     uis.atkBtn.disabled = true;
     uis.runBtn.disabled = true;
@@ -183,6 +186,7 @@
     uis.enemy.style.visibility = 'hidden';
     setTimeout(respawn, 3000) 
   }
+  
   function respawn(){
     enemy=enemyList[0]
       enemy_status = 0
