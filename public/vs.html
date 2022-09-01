@@ -151,7 +151,7 @@
     life_enemy = maxlife_enemy              
     atk_enemy = enemy.atk
     atk = 273
-    maxhp = 273*3
+    maxhp = 1000
     hp = maxhp
     atkGauge=70
     //レンダリング
@@ -169,6 +169,12 @@
     uis.runBtn.disabled = false;
   }
   spawn()
+  if(hp<=0){
+    uis.dialog.innerText="HPが足りない！\n回復して来よう！"
+    uis.atkBtn.disabled = true;
+    uis.runBtn.disabled = true;
+    setTimeout(()=>history.back(-1),2000)
+  }
 
   function attack(){
     //前処理
@@ -180,6 +186,20 @@
     if(life_enemy<0) life_enemy=0
     const lifePercentage_enemy=life_enemy/maxlife_enemy
     //アニメーション
+    if(atkGauge==0){
+      let previous_msg=uis.dialog.innerText
+      setTimeout(function(){
+        uis.dialog.innerText = "アタックゲージが足りない・・・";
+        uis.atkBtn.disabled = true;
+        uis.runBtn.disabled = true;
+      }, 1)
+      setTimeout(function(){
+        uis.dialog.innerText = previous_msg;
+        uis.atkBtn.disabled = false;
+        uis.runBtn.disabled = false;
+      }, 1000)
+      return;
+    }
     setTimeout(function(){
       uis.dialog.innerText = "攻撃をした!";
       uis.atkBtn.disabled = true;
@@ -231,9 +251,19 @@
         uis.hpMeter.style.transform=`translate(-42%, 0%) rotate(${Math.floor(180 * (hp / maxhp))}deg)`;
         uis.hpGuage.style.filter="none";
         uis.dialog.innerText = `${atk_enemy}Kのダメージを受けた!`;
-        uis.atkBtn.disabled = false;
-        uis.runBtn.disabled = false;
-      }, 3000)
+      },3000)
+      if(hp==0){
+        setTimeout(function(){
+          uis.dialog.innerText = "負けてしまった・・・";
+        },4000)
+        setTimeout(()=>history.back(-1),6000)
+      }
+      else{
+        setTimeout(function(){
+          uis.atkBtn.disabled = false;
+          uis.runBtn.disabled = false;
+        }, 3000)
+      }
     } 
   }
   function escape(){
