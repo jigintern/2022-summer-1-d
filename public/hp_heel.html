@@ -11,17 +11,20 @@
 
 <body>
   <a href="hp_heel_selection.html"><img src="/image/HPheel1.png" width="40px" height="40px" alt="sample"></a>
-  <img src="/image/gauge.png"  class="ATKmeter" width="200px" height="90px" style="display: block; margin:auto">
-  <div class="meters-wrapper">
-    <div class="meter-panel" x-data="meterCtrl">
-      <div class="meter">
-        <div class="power">
-          <img src="/image/needle2.png" class="needle" width="90px" style="transform: scale(-1, 1);"  x-bind:style="rotateStyle()">
+  <div class="background">
+    <img src="/image/gauge.png"  class="ATKmeter" width="200px" height="90px" style="display: block;">
+    <div class="meters-wrapper">
+      <div class="meter-panel" x-data="meterCtrl">
+        <div class="meter">
+          <div class="power">
+            <img src="/image/needle2.png" class="needle" width="90px" style="transform: scale(-1, 1);"  x-bind:style="rotateStyle()">
+          </div>
+          <button x-on:click="increment" style="display: block; margin:auto">HP回復</button>
         </div>
-        <button x-on:click="increment" style="display: block; margin:auto">HP回復</button>
       </div>
     </div>
   </div>
+  
 </body>
 <script>
   const tbl_hp=[

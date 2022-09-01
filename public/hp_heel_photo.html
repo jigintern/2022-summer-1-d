@@ -12,11 +12,12 @@
 <body>
   <a href="hp_heel_selection.html"><img src="/image/HPheel1.png" width="40px" height="40px" alt="sample"></a>
   <div class="background">
-    <form id="form" action="">
-      <div class="photo">
-        <input type="file" name="test" accept="image/png, image/jpeg" required>
-      </div>
-    </form>
+    <div class="photo">
+      <form id="form" method="post">
+        <input type="file" name="test" onchange="previewFile(this);" accept="image/png, image/jpeg" required>
+        <img id="preview" style="max-width:200px; max-height: 200px;" alt="sample">
+      </form>
+    </div>
     <img src="/image/gauge.png"  class="ATKmeter" width="200px" height="90px" style="display: block;">
     <div class="meters-wrapper">
       <div class="meter-panel" x-data="meterCtrl">
@@ -24,12 +25,38 @@
           <div class="power">
             <img src="/image/needle2.png" class="needle" width="90px" style="transform: scale(-1, 1);"  x-bind:style="rotateStyle()">
           </div>
-          <div class="button"><input type="button" id="photo" form="form" name="submit" x-on:click="increment" value="写真投稿" style="display: block; margin:auto"></div>
+          <div class="button">
+            <input type="submit" form="form" x-on:click="increment" value="写真投稿" style="display: block; margin:auto">
+          </div>
         </div>
+      </div>
+    </div>
+    <div id="text" class="box">
+      <div>
+        写真を投稿してみよう!
       </div>
     </div>
   </div>
 </body>  
-<script>
+<script type="text/javascript" language="javascript">
+  function previewFile( inputElement )
+  {
+    var fileList = inputElement.files;
+    var fileCount = fileList.length;
+    var loadCompleteCount = 0;
+    var imageList = "";
+    for ( var i = 0; i < fileCount; i++ ) {
+        var fileReader = new FileReader();
+        var file = fileList[ i ];
+        fileReader.onload = function() {
+            imageList += "<li><img src=\""+this.result+"\"/></li>/r/n";
+            if ( ++loadCompleteCount == fileCount ) {
+                document.getElementById( "preview" ).innerHTML = imageList;
+            }
+        };
+        fileReader.readAsDataURL( file );
+    }
+  }
+  
 </script>
 </html>
