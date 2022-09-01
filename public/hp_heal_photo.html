@@ -50,5 +50,17 @@
     fileReader.readAsDataURL( file );
   }
   
+  function meterCtrl() {
+    return {
+      percentage: 0,
+      async increment() {
+        this.percentage += 10;
+        if(this.percentage > 100) this.percentage = 100
+      },
+      rotateStyle() {
+         return `transform: rotate(${Math.floor(180 * (this.percentage / 100))}deg);`;
+      },
+    }
+  }
 </script>
 </html>
