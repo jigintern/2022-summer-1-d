@@ -155,9 +155,6 @@
     hp = maxhp
     atkGauge=70
     //レンダリング
-    uis.enemyName.style.visibility='visible';
-    uis.enemy.style.visibility='visible';
-    uis.lifeFrame.style.visibility='visible';
     uis.enemyName.innerText=`${enemy.name}`
     uis.dialog.innerText = `${flag?"":"新たな"}${enemy.name}が現れた！`;
     if(flag)flag=false
@@ -167,6 +164,9 @@
     uis.lifeBar.style.width = "100%";
     uis.atkBtn.disabled = false;
     uis.runBtn.disabled = false;
+    uis.enemyName.style.visibility='visible';
+    uis.enemy.style.visibility='visible';
+    uis.lifeFrame.style.visibility='visible';
   }
   spawn()
   if(hp<=0){
