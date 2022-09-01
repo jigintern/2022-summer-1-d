@@ -33,3 +33,29 @@ for(let i=0;i<enemyList.length;i++){
   j -= enemyList[i].frequency
   if(j<0) break;
 }
+
+//写真投稿によるHP回復
+function meterCtrl() {
+  return {
+    percentage: 0,
+    async increment(p) {
+      this.percentage += p;
+      if(this.percentage > 100) this.percentage = 100
+    },
+    async judge(){
+      const imgData=preview.children[0].src
+      const req = await fetch("/img"+location.search, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: imgData
+      });
+      if(req.status==201){
+        const reqestJson = await req.json()
+        this.increment(reqestJson.bornus);
+      }
+    },
+    rotateStyle() {
+       return `transform: rotate(${Math.floor(180 * (this.percentage / 100))}deg);`;
+    },
+  }
+}
