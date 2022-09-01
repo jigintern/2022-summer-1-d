@@ -39,23 +39,15 @@
   </div>
 </body>  
 <script type="text/javascript" language="javascript">
+  const preview = document.getElementById("preview")
   function previewFile( inputElement )
   {
-    var fileList = inputElement.files;
-    var fileCount = fileList.length;
-    var loadCompleteCount = 0;
-    var imageList = "";
-    for ( var i = 0; i < fileCount; i++ ) {
-        var fileReader = new FileReader();
-        var file = fileList[ i ];
-        fileReader.onload = function() {
-            imageList += "<li><img src=\""+this.result+"\"/></li>/r/n";
-            if ( ++loadCompleteCount == fileCount ) {
-                document.getElementById( "preview" ).innerHTML = imageList;
-            }
-        };
-        fileReader.readAsDataURL( file );
-    }
+    const fileReader = new FileReader();
+    const file = inputElement.files[0];
+    fileReader.onload = function() {
+      preview.src = this.result;
+    };
+    fileReader.readAsDataURL( file );
   }
   
 </script>
