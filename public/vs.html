@@ -210,12 +210,12 @@
       }, 250) 
       setTimeout(function(){
         uis.lifeBar.style.width = `${lifePercentage_enemy*100}%`;
-        if(lifePercentage_enemy<0.2)
-          enemy_status=2
-        else if(lifePercentage_enemy<0.7)
+        if(lifePercentage_enemy>0.7)
+          enemy_status=0
+        else if(lifePercentage_enemy>0.2)
           enemy_status=1
         else
-          enemy_status=0
+          enemy_status=2
       }, 500) 
       setTimeout(function(){
         uis.dialog.innerText = `${atk}kのダメージを与えた!`;
