@@ -178,10 +178,6 @@
     atkGauge-=atkGauge<80?dec_atkGauge:0;
     hp-=atk_enemy;
     if(hp<0) hp=0
-    if(atkGauge<0) atkGauge=0
-    if(life_enemy<0) life_enemy=0
-    const lifePercentage_enemy=life_enemy/maxlife_enemy
-    //アニメーション
     if(atkGauge==0){
       let previous_msg=uis.dialog.innerText
       setTimeout(function(){
@@ -196,6 +192,10 @@
       }, 1000)
       return;
     }
+    if(atkGauge<0) atkGauge=0
+    if(life_enemy<0) life_enemy=0
+    const lifePercentage_enemy=life_enemy/maxlife_enemy
+    //アニメーション
     setTimeout(function(){
       uis.dialog.innerText = "攻撃をした!";
       uis.atkBtn.disabled = true;
