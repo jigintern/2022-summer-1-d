@@ -151,10 +151,6 @@
     maxlife_enemy = enemy.maxlife
     life_enemy = maxlife_enemy              
     atk_enemy = enemy.atk
-    atk = 273
-    maxhp = 1000
-    hp = maxhp
-    atkGauge=70
     //レンダリング
     uis.enemyName.innerText=`${enemy.name}`
     uis.dialog.innerText = `${flag?"":"新たな"}${enemy.name}が現れた！`;
@@ -179,14 +175,6 @@
 
   function attack(){
     //前処理
-    life_enemy-=atk;
-    atkGauge-=atkGauge<80?dec_atkGauge:0;
-    hp-=atk_enemy;
-    if(hp<0) hp=0
-    if(atkGauge<0) atkGauge=0
-    if(life_enemy<0) life_enemy=0
-    const lifePercentage_enemy=life_enemy/maxlife_enemy
-    //アニメーション
     if(atkGauge==0){
       let previous_msg=uis.dialog.innerText
       setTimeout(function(){
@@ -201,6 +189,17 @@
       }, 1000)
       return;
     }
+    atkGauge-=atkGauge<80?dec_atkGauge:0;
+    if(atkGauge<0) atkGauge=0
+    life_enemy-=atk;
+    if(life_enemy<0) life_enemy=0
+    else{
+      hp-=atk_enemy;
+      if(hp<0) hp=0
+    }
+
+    const lifePercentage_enemy=life_enemy/maxlife_enemy
+    //アニメーション
     setTimeout(function(){
       uis.dialog.innerText = "攻撃をした!";
       uis.atkBtn.disabled = true;
