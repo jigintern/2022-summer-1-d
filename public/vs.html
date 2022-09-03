@@ -192,7 +192,7 @@
     atkGauge-=atkGauge<80?dec_atkGauge:0;
     if(atkGauge<0) atkGauge=0
     life_enemy-=atk;
-    if(life_enemy<0) life_enemy=0
+    if(life_enemy<=0) life_enemy=0
     else{
       hp-=atk_enemy;
       if(hp<0) hp=0
