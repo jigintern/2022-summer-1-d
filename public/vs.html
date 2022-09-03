@@ -130,6 +130,7 @@
       ]
     }
   ]     
+  const ndl_tr_df = "translate(-42%, 0%) "//needle's transform default
   const sum_freq = enemyList.reduce((sum, element) => sum + element.frequency, 0);
   const dec_atkGauge=5
   let enemy, enemy_status, maxlife_enemy, life_enemy, atk_enemy;
@@ -159,8 +160,8 @@
     uis.dialog.innerText = `${flag?"":"新たな"}${enemy.name}が現れた！`;
     if(flag)flag=false
     uis.enemy.src=enemy.imgs[enemy_status][0];
-    uis.hpMeter.style.transform=`translate(-42%, 0%) rotate(${Math.floor(180 * (hp / maxhp))}deg)`;
-    uis.atkMeter.style.transform=`translate(-42%, 0%) rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
+    uis.hpMeter.style.transform = ndl_tr_df + `rotate(${Math.floor(180 * (hp / maxhp))}deg)`;
+    uis.atkMeter.style.transform = ndl_tr_df + `rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
     uis.lifeBar.style.width = "100%";
     uis.atkBtn.disabled = false;
     uis.runBtn.disabled = false;
@@ -208,7 +209,7 @@
     }, 1)
     if(lifePercentage_enemy==0){
       setTimeout(function(){
-        uis.atkMeter.style.transform=`translate(-42%, 0%) rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
+        uis.atkMeter.style.transform = ndl_tr_df + `rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
         uis.atkGuage.style.filter="none";
         uis.enemy.src=enemy.imgs[enemy_status][1];
         uis.lifeBar.style.width = `${lifePercentage_enemy*100}%`;   
@@ -225,7 +226,7 @@
     else{
       setTimeout(function(){
         uis.enemy.src=enemy.imgs[enemy_status][1];
-        uis.atkMeter.style.transform=`translate(-42%, 0%) rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
+        uis.atkMeter.style.transform = ndl_tr_df + `rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
         uis.atkGuage.style.filter="none";
       }, 250) 
       setTimeout(function(){
@@ -248,7 +249,7 @@
         uis.hpGuage.style.filter="opacity(0.4) drop-shadow(0 0 0 red)";
       }, 2250) 
       setTimeout(function(){
-        uis.hpMeter.style.transform=`translate(-42%, 0%) rotate(${Math.floor(180 * (hp / maxhp))}deg)`;
+        uis.hpMeter.style.transform = ndl_tr_df + `rotate(${Math.floor(180 * (hp / maxhp))}deg)`;
         uis.hpGuage.style.filter="none";
         uis.dialog.innerText = `${atk_enemy}Kのダメージを受けた!`;
       },3000)
