@@ -134,8 +134,30 @@
   const sum_freq = enemyList.reduce((sum, element) => sum + element.frequency, 0);
   const dec_atkGauge=5
   let enemy, enemy_status, maxlife_enemy, life_enemy, atk_enemy;
-  let atk = 273, maxhp = 1000, hp = maxhp, atkGauge=70;
+  let status, maxhp=1000
+  window.onload = async()=>{
+    status = (await((await fetch("/player"+location.search)).json()))[0]??{
+      atk : 273,
+      maxhp : 1000,
+      hp : maxhp,
+      atkGauge : 70
+    }
+    spawn()
+    if(status.hp<=0){
+      uis.dialog.innerText="HPが足りない！\n回復して来よう！"
+      uis.atkBtn.disabled = true;
+      uis.runBtn.disabled = true;
+      setTimeout(()=>history.back(-1),2000)
+    }
+  }
   let flag=true;
+  const save = async()=>{
+    await fetch("/player"+location.search, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({hp:status.hp,atk:status.atk})
+    });
+  }
 
   function spawn(){
     //クーランガチャ
@@ -156,8 +178,8 @@
     uis.dialog.innerText = `${flag?"":"新たな"}${enemy.name}が現れた！`;
     if(flag)flag=false
     uis.enemy.src=enemy.imgs[enemy_status][0];
-    uis.hpMeter.style.transform = ndl_tr_df + `rotate(${Math.floor(180 * (hp / maxhp))}deg)`;
-    uis.atkMeter.style.transform = ndl_tr_df + `rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
+    uis.hpMeter.style.transform = ndl_tr_df + `rotate(${Math.floor(180 * (status.hp / status.maxhp))}deg)`;
+    uis.atkMeter.style.transform = ndl_tr_df + `rotate(${Math.floor(180 * (status.atkGauge / 100))}deg)`;
     uis.lifeBar.style.width = "100%";
     uis.atkBtn.disabled = false;
     uis.runBtn.disabled = false;
@@ -165,17 +187,10 @@
     uis.enemy.style.visibility='visible';
     uis.lifeFrame.style.visibility='visible';
   }
-  spawn()
-  if(hp<=0){
-    uis.dialog.innerText="HPが足りない！\n回復して来よう！"
-    uis.atkBtn.disabled = true;
-    uis.runBtn.disabled = true;
-    setTimeout(()=>history.back(-1),2000)
-  }
 
-  function attack(){
+  const attack = async()=>{
     //前処理
-    if(atkGauge==0){
+    if(status.atkGauge==0){
       let previous_msg=uis.dialog.innerText
       setTimeout(function(){
         uis.dialog.innerText = "アタックゲージが足りない・・・";
@@ -189,14 +204,15 @@
       }, 1000)
       return;
     }
-    atkGauge-=atkGauge<80?dec_atkGauge:0;
-    if(atkGauge<0) atkGauge=0
-    life_enemy-=atk;
+    status.atkGauge-=status.atkGauge<80?dec_atkGauge:0;
+    if(status.atkGauge<0) status.atkGauge=0
+    life_enemy-=status.atk;
     if(life_enemy<=0) life_enemy=0
     else{
-      hp-=atk_enemy;
-      if(hp<0) hp=0
+      status.hp-=atk_enemy;
+      if(status.hp<0) status.hp=0
     }
+    await save()
 
     const lifePercentage_enemy=life_enemy/maxlife_enemy
     //アニメーション
@@ -208,7 +224,7 @@
     }, 1)
     if(lifePercentage_enemy==0){
       setTimeout(function(){
-        uis.atkMeter.style.transform = ndl_tr_df + `rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
+        uis.atkMeter.style.transform = ndl_tr_df + `rotate(${Math.floor(180 * (status.atkGauge / 100))}deg)`;
         uis.atkGuage.style.filter="none";
         uis.enemy.src=enemy.imgs[enemy_status][1];
         uis.lifeBar.style.width = `${lifePercentage_enemy*100}%`;   
@@ -225,7 +241,7 @@
     else{
       setTimeout(function(){
         uis.enemy.src=enemy.imgs[enemy_status][1];
-        uis.atkMeter.style.transform = ndl_tr_df + `rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
+        uis.atkMeter.style.transform = ndl_tr_df + `rotate(${Math.floor(180 * (status.atkGauge / 100))}deg)`;
         uis.atkGuage.style.filter="none";
       }, 250) 
       setTimeout(function(){
@@ -238,7 +254,7 @@
           enemy_status=2
       }, 500) 
       setTimeout(function(){
-        uis.dialog.innerText = `${atk}kのダメージを与えた!`;
+        uis.dialog.innerText = `${status.atk}kのダメージを与えた!`;
         uis.enemy.src=enemy.imgs[enemy_status][0];
       }, 1000) 
       setTimeout(function(){
@@ -248,11 +264,11 @@
         uis.hpGuage.style.filter="opacity(0.4) drop-shadow(0 0 0 red)";
       }, 2250) 
       setTimeout(function(){
-        uis.hpMeter.style.transform = ndl_tr_df + `rotate(${Math.floor(180 * (hp / maxhp))}deg)`;
+        uis.hpMeter.style.transform = ndl_tr_df + `rotate(${Math.floor(180 * (status.hp / status.maxhp))}deg)`;
         uis.hpGuage.style.filter="none";
         uis.dialog.innerText = `${atk_enemy}Kのダメージを受けた!`;
       },3000)
-      if(hp==0){
+      if(status.hp==0){
         setTimeout(function(){
           uis.dialog.innerText = "負けてしまった・・・";
         },4000)
