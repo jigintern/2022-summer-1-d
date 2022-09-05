@@ -155,7 +155,7 @@
     await fetch("/player"+location.search, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({hp:status.hp,atk:status.atk})
+      body: JSON.stringify(status)
     });
   }
 
