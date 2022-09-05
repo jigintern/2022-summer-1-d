@@ -190,7 +190,7 @@ serve(async (req) => {
 
            // Insert the new todo into the database
            await connection.queryObject`
-             UPDATE status set hp=${status.hp}, atk=${status.atk} WHERE id=${ID}
+             UPDATE status set ${JSON.keys(status).map(k=>k+"="+status[k]).join(",")} WHERE id=${ID}
            `;
           // Return a 201 Created response
           return new Response("", { status: 201 });
