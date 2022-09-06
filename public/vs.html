@@ -140,7 +140,7 @@
       atk : 273,
       maxhp : 1000,
       hp : maxhp,
-      atkGauge : 70
+      atk_gauge : 70
     }
     spawn()
     if(status.hp<=0){
@@ -179,7 +179,7 @@
     if(flag)flag=false
     uis.enemy.src=enemy.imgs[enemy_status][0];
     uis.hpMeter.style.transform = ndl_tr_df + `rotate(${Math.floor(180 * (status.hp / status.maxhp))}deg)`;
-    uis.atkMeter.style.transform = ndl_tr_df + `rotate(${Math.floor(180 * (status.atkGauge / 100))}deg)`;
+    uis.atkMeter.style.transform = ndl_tr_df + `rotate(${Math.floor(180 * (status.atk_gauge / 100))}deg)`;
     uis.lifeBar.style.width = "100%";
     uis.atkBtn.disabled = false;
     uis.runBtn.disabled = false;
@@ -190,7 +190,7 @@
 
   const attack = async()=>{
     //前処理
-    if(status.atkGauge==0){
+    if(status.atk_gauge==0){
       let previous_msg=uis.dialog.innerText
       setTimeout(function(){
         uis.dialog.innerText = "アタックゲージが足りない・・・";
@@ -204,8 +204,8 @@
       }, 1000)
       return;
     }
-    status.atkGauge-=status.atkGauge<80?dec_atkGauge:0;
-    if(status.atkGauge<0) status.atkGauge=0
+    status.atk_gauge-=status.atk_gauge<80?dec_atkGauge:0;
+    if(status.atk_gauge<0) status.atk_gauge=0
     life_enemy-=status.atk;
     if(life_enemy<=0) life_enemy=0
     else{
@@ -224,7 +224,7 @@
     }, 1)
     if(lifePercentage_enemy==0){
       setTimeout(function(){
-        uis.atkMeter.style.transform = ndl_tr_df + `rotate(${Math.floor(180 * (status.atkGauge / 100))}deg)`;
+        uis.atkMeter.style.transform = ndl_tr_df + `rotate(${Math.floor(180 * (status.atk_gauge / 100))}deg)`;
         uis.atkGuage.style.filter="none";
         uis.enemy.src=enemy.imgs[enemy_status][1];
         uis.lifeBar.style.width = `${lifePercentage_enemy*100}%`;   
@@ -241,7 +241,7 @@
     else{
       setTimeout(function(){
         uis.enemy.src=enemy.imgs[enemy_status][1];
-        uis.atkMeter.style.transform = ndl_tr_df + `rotate(${Math.floor(180 * (status.atkGauge / 100))}deg)`;
+        uis.atkMeter.style.transform = ndl_tr_df + `rotate(${Math.floor(180 * (status.atk_gauge / 100))}deg)`;
         uis.atkGuage.style.filter="none";
       }, 250) 
       setTimeout(function(){
