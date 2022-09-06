@@ -133,10 +133,11 @@
   const ndl_tr_df = "translate(-42%, 0%) "//needle's transform default
   const sum_freq = enemyList.reduce((sum, element) => sum + element.frequency, 0);
   const dec_atkGauge=5
+  const req_url="/player"+location.search
   let enemy, enemy_status, maxlife_enemy, life_enemy, atk_enemy;
   let status, maxhp=1000
   window.onload = async()=>{
-    status = (await((await fetch("/player"+location.search)).json()))[0]??{
+    status = (await((await fetch(req_url)).json()))[0]??{
       atk : 273,
       maxhp : 1000,
       hp : maxhp,
@@ -152,7 +153,7 @@
   }
   let flag=true;
   const save = async()=>{
-    await fetch("/player"+location.search, {
+    await fetch(req_url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(status)
