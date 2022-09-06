@@ -77,13 +77,15 @@ console.log(lastTime_getWeather);
 const url =
   `https://www.data.jma.go.jp/obd/stats/data/mdrr/tem_rct/alltable/mxtemsadext00_${lastTime_getWeather}.csv`;
 const updateWeatherData = async () => {
-  lastTime_getWeather = new Date().getHours();
   const data = CSV.toJSON(await CSV.fetch(url)).filter((d) => d.国際地点番号); //ロード&国際地点番号を含むデータのみ抽出
   //await Deno.writeTextFile("weatherData.json", JSON.stringify(data));
   //console.log(data)
-  await connection.queryObject`
-            UPDATE weatherData set text=${JSON.stringify(data)} WHERE id=1
-          `;
+  if(data.length){
+    lastTime_getWeather = new Date().getHours();
+    await connection.queryObject`
+      UPDATE weatherData set text=${JSON.stringify(data)} WHERE id=1
+    `;
+  }
 };
 await updateWeatherData();
 
@@ -125,7 +127,7 @@ serve(async (req) => {
     `).rows[0].text,
     );
 
-    console.log(weatherData);
+    //console.log(weatherData);
 
     //国際地点番号のデータ
     const indexNumber = JSON.parse(await Deno.readTextFile("indexNbr.json"));
@@ -182,7 +184,7 @@ serve(async (req) => {
           );
           const ID = params.get("id");
           const status = await req.json().catch(() => null);
-          console.log(`id: ${ID}\nstatus: ${status} (type: ${typeof status})`);
+          console.log(`id: ${ID}\nstatus: ${JSON.stringify(status)} (type: ${typeof status})`);
           if (typeof status !== "object") {
             console.log("Bad Reqest");
             return new Response("Bad Request", { status: 400 });
@@ -190,7 +192,7 @@ serve(async (req) => {
 
            // Insert the new todo into the database
            await connection.queryObject`
-             UPDATE status set ${JSON.keys(status).map(k=>k+"="+status[k]).join(",")} WHERE id=${ID}
+             UPDATE status set hp=${status.hp},atk_gauge=${status.atk_gauge} WHERE id=${ID}
            `;
           // Return a 201 Created response
           return new Response("", { status: 201 });
