@@ -192,7 +192,7 @@ serve(async (req) => {
 
            // Insert the new todo into the database
            await connection.queryObject`
-             UPDATE status set hp=${status.hp},atk_gauge=${status.atk_gauge} WHERE id=${ID}
+             UPDATE status set maxhp=${status.maxhp},hp=${status.hp},atk=${status.atk},atk_gauge=${status.atk_gauge} WHERE id=${ID}
            `;
           // Return a 201 Created response
           return new Response("", { status: 201 });
