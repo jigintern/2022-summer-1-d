@@ -45,6 +45,9 @@ html,body{
 .vs{
   display: flex;
   justify-content: center;
+  align-content: flex-end;
+  width: 100vw;
+  height: 40vh;
 }
 .enemy{
   margin-left: 10%;

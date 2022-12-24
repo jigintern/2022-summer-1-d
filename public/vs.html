@@ -23,9 +23,9 @@
           雑魚クーラン
       </b>
       <div class="vs">
-        <div class="enemy" style="text-align: center">
-          <img id="image01" src="/image/snowman1.png" width="70%" alt="sample">
+          <img id="image01" src="/image/enemy/zako/snowman1.png" width="70%" alt="sample">
         </div>
+        <div class="enemy">
       </div>
           <div class="meters-wrapper">
             <div class="meter-panel">
@@ -76,52 +76,147 @@
   const enemyList=[
     {
       name:"雑魚クーラン",
-      maxlife:273*3,
-      atk:273,
-      frequency:100,
+      maxlife:922,
+      atk:20,
+      frequency:70,
       imgs:[
-        ["image/snowman1.png","image/snowman4.png"],
-        ["image/snowman2.png","image/snowman5.png"],
-        ["image/snowman3.png","image/snowman6.png"]
+        ["image/enemy/zako/snowman1.png", "image/enemy/zako/snowman4.png"],
+        ["image/enemy/zako/snowman2.png", "image/enemy/zako/snowman5.png"],
+        ["image/enemy/zako/snowman3.png", "image/enemy/zako/snowman6.png"]
+      ]
+    },
+    {
+      name:"エアクーラン",
+      maxlife:1365,
+      atk:40,
+      frequency:20,
+      imgs:[
+        ["image/enemy/air/air_coolern1.png", "image/enemy/air/air_coolern2.png"],
+        ["image/enemy/air/air_coolern3.png", "image/enemy/air/air_coolern4.png"],
+        ["image/enemy/air/air_coolern5.png", "image/enemy/air/air_coolern6.png"]
+      ]
+    },
+    {
+      name:"ボスクーラン",
+      maxlife:2730,
+      atk:100,
+      frequency:10,
+      imgs:[
+        ["image/enemy/boss/boss_coolern1.png", "image/enemy/boss/boss_coolern2.png"],
+        ["image/enemy/boss/boss_coolern3.png", "image/enemy/boss/boss_coolern4.png"],
+        ["image/enemy/boss/boss_coolern5.png", "image/enemy/boss/boss_coolern6.png"]
+      ]
+    },
+    {
+      name:"レアクーラン",
+      maxlife:546,
+      atk:10,
+      frequency:0,
+      imgs:[
+        ["image/enemy/zako/snowman1.png", "image/enemy/zako/snowman4.png"],
+        ["image/enemy/zako/snowman2.png", "image/enemy/zako/snowman5.png"],
+        ["image/enemy/zako/snowman3.png", "image/enemy/zako/snowman6.png"]
+      ]
+    },
+    {
+      name:"ダミークーラン",
+      maxlife:2500,
+      atk:12,
+      frequency:0,
+      imgs:[
+        ["image/enemy/zako/snowman1.png", "image/enemy/zako/snowman4.png"],
+        ["image/enemy/zako/snowman2.png", "image/enemy/zako/snowman5.png"],
+        ["image/enemy/zako/snowman3.png", "image/enemy/zako/snowman6.png"]
       ]
     }
   ]     
+  const ndl_tr_df = "translate(-42%, 0%) "//needle's transform default
+  const sum_freq = enemyList.reduce((sum, element) => sum + element.frequency, 0);
+  const dec_atkGauge=5
+  const req_url="/player"+location.search
   let enemy, enemy_status, maxlife_enemy, life_enemy, atk_enemy;
-  let atk = 273, maxhp = 273*3, hp = maxhp, atkGauge=70;
+  let status, maxhp=1000
+  window.onload = async()=>{
+    status = (await((await fetch(req_url)).json()))[0]??{
+      atk : 273,
+      maxhp : 1000,
+      hp : maxhp,
+      atk_gauge : 70
+    }
+    spawn()
+    if(status.hp<=0){
+      uis.dialog.innerText="HPが足りない！\n回復して来よう！"
+      uis.atkBtn.disabled = true;
+      uis.runBtn.disabled = true;
+      setTimeout(()=>history.back(-1),2000)
+    }
+  }
   let flag=true;
-  const dec_atkGauge=20
+  const save = async()=>{
+    await fetch(req_url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(status)
+    });
+  }
 
   function spawn(){
-    enemy=enemyList[0]
-      enemy_status = 0
-      maxlife_enemy = enemy.maxlife
-      life_enemy = maxlife_enemy              
-      atk_enemy = enemy.atk
-      atk = 273
-      maxhp = 273*3
-      hp = maxhp
-      atkGauge=70
-      uis.enemyName.style.visibility='visible';
-      uis.enemy.style.visibility='visible';
-      uis.lifeFrame.style.visibility='visible';
-      uis.enemyName.innerText=`${enemy.name}`
-      uis.dialog.innerText = `${flag?"":"新たな"}${enemy.name}が現れた！`;
-      if(flag)flag=false
-      uis.enemy.src=enemy.imgs[enemy_status][0];
-      uis.hpMeter.style.transform=`translate(-42%, 0%) rotate(${Math.floor(180 * (hp / maxhp))}deg)`;
-      uis.atkMeter.style.transform=`translate(-42%, 0%) rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
-      uis.lifeBar.style.width = "100%";
-      uis.atkBtn.disabled = false;
-      uis.runBtn.disabled = false;
+    //クーランガチャ
+    let i = 0, j = sum_freq*Math.random();
+    while(i<enemyList.length){
+      j -= enemyList[i].frequency
+      if(j<0) break;
+      i++
+    }
+    //初期値の設定
+    enemy=enemyList[i]
+    enemy_status = 0
+    maxlife_enemy = enemy.maxlife
+    life_enemy = maxlife_enemy              
+    atk_enemy = enemy.atk
+    //レンダリング
+    uis.enemyName.innerText=`${enemy.name}`
+    uis.dialog.innerText = `${flag?"":"新たな"}${enemy.name}が現れた！`;
+    if(flag)flag=false
+    uis.enemy.src=enemy.imgs[enemy_status][0];
+    uis.hpMeter.style.transform = ndl_tr_df + `rotate(${Math.floor(180 * (status.hp / status.maxhp))}deg)`;
+    uis.atkMeter.style.transform = ndl_tr_df + `rotate(${Math.floor(180 * (status.atk_gauge / 100))}deg)`;
+    uis.lifeBar.style.width = "100%";
+    uis.atkBtn.disabled = false;
+    uis.runBtn.disabled = false;
+    uis.enemyName.style.visibility='visible';
+    uis.enemy.style.visibility='visible';
+    uis.lifeFrame.style.visibility='visible';
   }
-  spawn()
 
-  function attack(){
-    life_enemy-=atk;
-    atkGauge-=dec_atkGauge;
-    hp-=atk_enemy;
-    if(life_enemy<0) life_enemy=0
+  const attack = async()=>{
+    //前処理
+    if(status.atk_gauge==0){
+      let previous_msg=uis.dialog.innerText
+      setTimeout(function(){
+        uis.dialog.innerText = "アタックゲージが足りない・・・";
+        uis.atkBtn.disabled = true;
+        uis.runBtn.disabled = true;
+      }, 1)
+      setTimeout(function(){
+        uis.dialog.innerText = previous_msg;
+        uis.atkBtn.disabled = false;
+        uis.runBtn.disabled = false;
+      }, 1000)
+      return;
+    }
+    status.atk_gauge-=status.atk_gauge<80?dec_atkGauge:0;
+    if(status.atk_gauge<0) status.atk_gauge=0
+    life_enemy-=status.atk;
+    if(life_enemy<=0) life_enemy=0
+    else{
+      status.hp-=atk_enemy;
+      if(status.hp<0) status.hp=0
+    }
+    await save()
+
     const lifePercentage_enemy=life_enemy/maxlife_enemy
+    //アニメーション
     setTimeout(function(){
       uis.dialog.innerText = "攻撃をした!";
       uis.atkBtn.disabled = true;
@@ -130,7 +225,7 @@
     }, 1)
     if(lifePercentage_enemy==0){
       setTimeout(function(){
-        uis.atkMeter.style.transform=`translate(-42%, 0%) rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
+        uis.atkMeter.style.transform = ndl_tr_df + `rotate(${Math.floor(180 * (status.atk_gauge / 100))}deg)`;
         uis.atkGuage.style.filter="none";
         uis.enemy.src=enemy.imgs[enemy_status][1];
         uis.lifeBar.style.width = `${lifePercentage_enemy*100}%`;   
@@ -147,20 +242,20 @@
     else{
       setTimeout(function(){
         uis.enemy.src=enemy.imgs[enemy_status][1];
-        uis.atkMeter.style.transform=`translate(-42%, 0%) rotate(${Math.floor(180 * (atkGauge / 100))}deg)`;
+        uis.atkMeter.style.transform = ndl_tr_df + `rotate(${Math.floor(180 * (status.atk_gauge / 100))}deg)`;
         uis.atkGuage.style.filter="none";
       }, 250) 
       setTimeout(function(){
         uis.lifeBar.style.width = `${lifePercentage_enemy*100}%`;
-        if(lifePercentage_enemy<0.4)
-          enemy_status=2
-        else if(lifePercentage_enemy<0.7)
+        if(lifePercentage_enemy>0.7)
+          enemy_status=0
+        else if(lifePercentage_enemy>0.2)
           enemy_status=1
         else
-          enemy_status=0
+          enemy_status=2
       }, 500) 
       setTimeout(function(){
-        uis.dialog.innerText = `${atk}kのダメージを与えた!`;
+        uis.dialog.innerText = `${status.atk}kのダメージを与えた!`;
         uis.enemy.src=enemy.imgs[enemy_status][0];
       }, 1000) 
       setTimeout(function(){
@@ -170,12 +265,22 @@
         uis.hpGuage.style.filter="opacity(0.4) drop-shadow(0 0 0 red)";
       }, 2250) 
       setTimeout(function(){
-        uis.hpMeter.style.transform=`translate(-42%, 0%) rotate(${Math.floor(180 * (hp / maxhp))}deg)`;
+        uis.hpMeter.style.transform = ndl_tr_df + `rotate(${Math.floor(180 * (status.hp / status.maxhp))}deg)`;
         uis.hpGuage.style.filter="none";
         uis.dialog.innerText = `${atk_enemy}Kのダメージを受けた!`;
-        uis.atkBtn.disabled = false;
-        uis.runBtn.disabled = false;
-      }, 3000)
+      },3000)
+      if(status.hp==0){
+        setTimeout(function(){
+          uis.dialog.innerText = "負けてしまった・・・";
+        },4000)
+        setTimeout(()=>history.back(-1),6000)
+      }
+      else{
+        setTimeout(function(){
+          uis.atkBtn.disabled = false;
+          uis.runBtn.disabled = false;
+        }, 3000)
+      }
     } 
   }
   function escape(){

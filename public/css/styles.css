@@ -42,7 +42,7 @@ img.needle {
   display: flex;
   flex-direction: column;
   align-items: center;
- }
+}
 
 .meter {
   margin: 5px;
